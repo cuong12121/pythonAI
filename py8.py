@@ -15,7 +15,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 # Define file paths (equivalent to __DIR__ in PHP)
 current_dir = os.path.dirname(os.path.abspath(__file__))
 output_file = os.path.join(current_dir, 'cropped1169.png')
-input_file = os.path.join(current_dir, 't4.pdf')
+input_file = os.path.join(current_dir, 't17.pdf')
 
 def count_pdf_pages(input_file):
     with Image(filename=input_file) as img:
@@ -201,7 +201,7 @@ def quantity(input_file):
     # Save or display the result
     cv2.imwrite('result_no_letters.png', result)
 
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+   
 
 
     # Load ảnh
@@ -233,27 +233,33 @@ for i in range(so_trang):
     # print(i)
     cut_image(input_file,i)
     
-    tracking= tracking(input_file2)
+    trackings= tracking(input_file2)
     
-    ma_van_don = re.search(r'Mã vận đơn[.: ]+\s*([A-Z0-9]+)', tracking)
-    ma_don_hang = re.search(r'Mã đơn hàng[.: ]+\s*([A-Z0-9]+)', tracking)
+    ma_van_don = re.search(r'Mã vận đơn[.: ]+\s*([A-Z0-9]+)', trackings)
+    ma_don_hang = re.search(r'Mã đơn hàng[.: ]+\s*([A-Z0-9]+)', trackings)
 
-    arrayvd = [ma_van_don.group(1), ma_don_hang.group(1)]
+    if ma_van_don:
+        value = ma_van_don.group(1)
+
+    else:
+       value =""
+
+    arrayvd = [value, ma_don_hang.group(1)]
 
 
-    quantity = quantity(input_file3)
-    sku =sku(input_file1)
+    quantitys = quantity(input_file3)
+    skus =sku(input_file1)
 
     pattern = r'\b[A-Za-z0-9]{4}\s*-\s*[A-Za-z]{2}\s*-\s*\d{2}\s*-\s*[A-Za-z]{3}\b'
 
-    clean_text = sku.replace('\n', ' ').replace('\r', ' ')
+    clean_text = skus.replace('\n', ' ').replace('\r', ' ')
 
-    skus = re.findall(pattern, clean_text)
+    skuss = re.findall(pattern, clean_text)
 
     array.append({
         'sku': skus,
         'tracking': arrayvd,
-        'quantity': quantity
+        'quantity': quantitys
     })
 
 # # image = cv2.imread(input_file2)
