@@ -14,9 +14,8 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 # Define file paths (equivalent to __DIR__ in PHP)
 current_dir = os.path.dirname(os.path.abspath(__file__))
-input_file = os.path.join(current_dir, 't4.pdf')
 output_file = os.path.join(current_dir, 'cropped1169.png')
-
+input_file = os.path.join(current_dir, 't4.pdf')
 
 def count_pdf_pages(input_file):
     with Image(filename=input_file) as img:
@@ -26,83 +25,80 @@ def count_pdf_pages(input_file):
 so_trang = count_pdf_pages(input_file)
 # print(f"Số trang PDF: {so_trang}")
 
-
-
-# phần cắt ảnh thành 3 ảnh để check
-
-
-with Image(filename=f'{input_file}[0]', resolution=(300, 300)) as img:
-    # Convert to grayscale
-    img.transform_colorspace('gray')
-    
-    for _ in range(3):
-        img.contrast()
-    
-    # Enhance image
-    img.modulate(brightness=100, saturation=100, hue=100)
-    
-    # Sharpen image
-    img.sharpen(radius=2, sigma=1)
-
-    # -------- Cắt ảnh 1 --------
-    with img.clone() as img1:
-        x = 82
-        y = 1900
-        width = 88
-        height = 1000
-        img1.crop(x, y, width=width, height=height)
-        img1.format = 'png'
-        img1.save(filename='file1.png')
-
-    # -------- Cắt ảnh 2 --------
-    with img.clone() as img2:
-        x1 = 500
-        y1 = 130
-        width1 = 650
-        height1 = 150
-        img2.crop(x1, y1, width=width1, height=height1)
-        img2.format = 'png'
-        img2.save(filename='file2.png')
-    with img.clone() as img3:    
-        img.transform_colorspace('gray')  # Convert to grayscale
-
+def cut_image(input_file,page):
+    # phần cắt ảnh thành 3 ảnh để check
+    with Image(filename=f'{input_file}[{page}]', resolution=(300, 300)) as img:
+        # Convert to grayscale
+        img.transform_colorspace('gray')
+        
         for _ in range(3):
-            img.contrast()  # Increase contrast
+            img.contrast()
+        
+        # Enhance image
+        img.modulate(brightness=100, saturation=100, hue=100)
+        
+        # Sharpen image
+        img.sharpen(radius=2, sigma=1)
 
-        img.modulate(brightness=200, saturation=200, hue=200)  # Enhance image
+        # -------- Cắt ảnh 1 --------
+        with img.clone() as img1:
+            x = 82
+            y = 1900
+            width = 88
+            height = 1000
+            img1.crop(x, y, width=width, height=height)
+            img1.format = 'png'
+            img1.save(filename='file1.png')
 
-        img.sharpen(radius=2, sigma=1)  # Sharpen image
+        # -------- Cắt ảnh 2 --------
+        with img.clone() as img2:
+            x1 = 500
+            y1 = 130
+            width1 = 650
+            height1 = 150
+            img2.crop(x1, y1, width=width1, height=height1)
+            img2.format = 'png'
+            img2.save(filename='file2.png')
+        with img.clone() as img3:    
+            img.transform_colorspace('gray')  # Convert to grayscale
 
-        # Optional crop
-        # img.crop(x=860, y=2000, width=80, height=900)
+            for _ in range(3):
+                img.contrast()  # Increase contrast
 
-        img.format = 'png'  # Set output format
-        img.save(filename=output_file)  # Save image
-        from PIL import Image as PILImage
+            img.modulate(brightness=200, saturation=200, hue=200)  # Enhance image
 
-        img = PILImage.open(output_file)
-        # img.show()  # hoặc các xử lý tiếp theo
-        # Lấy kích thước gốc
-        img_width, img_height = img.size
+            img.sharpen(radius=2, sigma=1)  # Sharpen image
 
-        # Ví dụ: cắt từ 40% chiều ngang và 20% chiều cao,
-        # với vùng cắt rộng 30% và cao 50%
-        x_pct = 0.349
-        y_pct = 0.54
-        width_pct = 0.03
-        height_pct = 0.25
+            # Optional crop
+            # img.crop(x=860, y=2000, width=80, height=900)
 
-        # Tính toán toạ độ cắt
-        x = int(x_pct * img_width)
-        y = int(y_pct * img_height)
-        width = int(width_pct * img_width)
-        height = int(height_pct * img_height)
+            img.format = 'png'  # Set output format
+            img.save(filename=output_file)  # Save image
+            from PIL import Image as PILImage
 
-        # Cắt ảnh
-        cropped_img = img.crop((x, y, x + width, y + height))
+            img = PILImage.open(output_file)
+            # img.show()  # hoặc các xử lý tiếp theo
+            # Lấy kích thước gốc
+            img_width, img_height = img.size
 
-        # Lưu ảnh cắt được
-        cropped_img.save('file3.png')
+            # Ví dụ: cắt từ 40% chiều ngang và 20% chiều cao,
+            # với vùng cắt rộng 30% và cao 50%
+            x_pct = 0.349
+            y_pct = 0.54
+            width_pct = 0.03
+            height_pct = 0.25
+
+            # Tính toán toạ độ cắt
+            x = int(x_pct * img_width)
+            y = int(y_pct * img_height)
+            width = int(width_pct * img_width)
+            height = int(height_pct * img_height)
+
+            # Cắt ảnh
+            cropped_img = img.crop((x, y, x + width, y + height))
+
+            # Lưu ảnh cắt được
+            cropped_img.save('file3.png')
 
 def sku(input_file):
    
@@ -223,36 +219,43 @@ def quantity(input_file):
     result = pytesseract.image_to_string(thresh, config=custom_config)
     return result
 
-# Define file paths (equivalent to __DIR__ in PHP)
-current_dir = os.path.dirname(os.path.abspath(__file__))
+
 
 input_file1 = os.path.join(current_dir, 'file1.png')
 input_file2 = os.path.join(current_dir, 'file2.png')
 input_file3 = os.path.join(current_dir, 'file3.png')
 
 # sku = sku(input_file1)
-
-tracking= tracking(input_file2)
-
-ma_van_don = re.search(r'Mã vận đơn[.: ]+\s*([A-Z0-9]+)', tracking)
-ma_don_hang = re.search(r'Mã đơn hàng[.: ]+\s*([A-Z0-9]+)', tracking)
-
-arrayvd = [ma_van_don.group(1), ma_don_hang.group(1)]
-
-
-
-print(arrayvd)
-# quantity = quantity(input_file3)
-
-# Tạo từ điển (dictionary)
 array = []
-array.append({
-    'sku': sku,
-    'tracking': arrayvd,
-    'quantity': quantity
-})
+
+#phần chạy code
+for i in range(so_trang): 
+    # print(i)
+    cut_image(input_file,i)
+    
+    tracking= tracking(input_file2)
+    
+    ma_van_don = re.search(r'Mã vận đơn[.: ]+\s*([A-Z0-9]+)', tracking)
+    ma_don_hang = re.search(r'Mã đơn hàng[.: ]+\s*([A-Z0-9]+)', tracking)
+
+    arrayvd = [ma_van_don.group(1), ma_don_hang.group(1)]
+
+
+    quantity = quantity(input_file3)
+    sku =sku(input_file1)
+
+    pattern = r'\b[A-Za-z0-9]{4}\s*-\s*[A-Za-z]{2}\s*-\s*\d{2}\s*-\s*[A-Za-z]{3}\b'
+
+    clean_text = sku.replace('\n', ' ').replace('\r', ' ')
+
+    skus = re.findall(pattern, clean_text)
+
+    array.append({
+        'sku': skus,
+        'tracking': arrayvd,
+        'quantity': quantity
+    })
 
 # # image = cv2.imread(input_file2)
-# print(array)
+print(array)
        
-exit()
