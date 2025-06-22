@@ -26,7 +26,86 @@ def count_pdf_pages(input_file):
 so_trang = count_pdf_pages(input_file)
 # print(f"Số trang PDF: {so_trang}")
 
-# exit()
+
+
+# phần cắt ảnh thành 3 ảnh để check
+
+
+with Image(filename=f'{input_file}[0]', resolution=(300, 300)) as img:
+    # Convert to grayscale
+    img.transform_colorspace('gray')
+    
+    for _ in range(3):
+        img.contrast()
+    
+    # Enhance image
+    img.modulate(brightness=100, saturation=100, hue=100)
+    
+    # Sharpen image
+    img.sharpen(radius=2, sigma=1)
+
+    # -------- Cắt ảnh 1 --------
+    with img.clone() as img1:
+        x = 82
+        y = 1900
+        width = 88
+        height = 1000
+        img1.crop(x, y, width=width, height=height)
+        img1.format = 'png'
+        img1.save(filename='file1.png')
+
+    # -------- Cắt ảnh 2 --------
+    with img.clone() as img2:
+        x1 = 500
+        y1 = 130
+        width1 = 650
+        height1 = 150
+        img2.crop(x1, y1, width=width1, height=height1)
+        img2.format = 'png'
+        img2.save(filename='file2.png')
+    with img.clone() as img3:    
+        img.transform_colorspace('gray')  # Convert to grayscale
+
+        for _ in range(3):
+            img.contrast()  # Increase contrast
+
+        img.modulate(brightness=200, saturation=200, hue=200)  # Enhance image
+
+        img.sharpen(radius=2, sigma=1)  # Sharpen image
+
+        # Optional crop
+        # img.crop(x=860, y=2000, width=80, height=900)
+
+        img.format = 'png'  # Set output format
+        img.save(filename=output_file)  # Save image
+        from PIL import Image as PILImage
+
+        img = PILImage.open(output_file)
+        # img.show()  # hoặc các xử lý tiếp theo
+        # Lấy kích thước gốc
+        img_width, img_height = img.size
+
+        # Ví dụ: cắt từ 40% chiều ngang và 20% chiều cao,
+        # với vùng cắt rộng 30% và cao 50%
+        x_pct = 0.349
+        y_pct = 0.54
+        width_pct = 0.03
+        height_pct = 0.25
+
+        # Tính toán toạ độ cắt
+        x = int(x_pct * img_width)
+        y = int(y_pct * img_height)
+        width = int(width_pct * img_width)
+        height = int(height_pct * img_height)
+
+        # Cắt ảnh
+        cropped_img = img.crop((x, y, x + width, y + height))
+
+        # Lưu ảnh cắt được
+        cropped_img.save('file3.png')
+
+       
+exit()
 def sku(input_file, output_file):
     # Initialize Imagick equivalent
     with Image(filename=f'{input_file}[0]', resolution=(300, 300)) as img:
