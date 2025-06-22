@@ -230,19 +230,29 @@ input_file1 = os.path.join(current_dir, 'file1.png')
 input_file2 = os.path.join(current_dir, 'file2.png')
 input_file3 = os.path.join(current_dir, 'file3.png')
 
-sku = sku(input_file1)
+# sku = sku(input_file1)
+
 tracking= tracking(input_file2)
-quantity = quantity(input_file3)
+
+ma_van_don = re.search(r'Mã vận đơn[.: ]+\s*([A-Z0-9]+)', tracking)
+ma_don_hang = re.search(r'Mã đơn hàng[.: ]+\s*([A-Z0-9]+)', tracking)
+
+arrayvd = [ma_van_don.group(1), ma_don_hang.group(1)]
+
+
+
+print(arrayvd)
+# quantity = quantity(input_file3)
 
 # Tạo từ điển (dictionary)
 array = []
 array.append({
     'sku': sku,
-    'tracking': tracking,
+    'tracking': arrayvd,
     'quantity': quantity
 })
 
-# image = cv2.imread(input_file2)
-print(array)
+# # image = cv2.imread(input_file2)
+# print(array)
        
 exit()
