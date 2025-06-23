@@ -17,19 +17,21 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 input_file = os.path.join(current_dir, 't21.pdf')
 output_file = os.path.join(current_dir, 'cropped1169.png')
 
+array =[]
+
 
 def count_pdf_pages(input_file):
     with Image(filename=input_file) as img:
         return len(img.sequence)
 
 
-# so_trang = count_pdf_pages(input_file)
+so_trang = count_pdf_pages(input_file)
 # print(f"Số trang PDF: {so_trang}")
 
 # exit()
-def cut(input_file, output_file):
+def cut(input_file, output_file, page):
     # Initialize Imagick equivalent
-    with Image(filename=f'{input_file}[0]', resolution=(300, 300)) as img:
+    with Image(filename=f'{input_file}[{page}]', resolution=(300, 300)) as img:
         # Convert to grayscale
         img.transform_colorspace('gray')
         
@@ -78,7 +80,14 @@ def sku(output_file):
     # OCR chỉ lấy số
     custom_config = r'--oem 3 --psm 6'
     result = pytesseract.image_to_string(image, config=custom_config, lang='vie')  # nếu có tiếng Việt
-    return result        
-cut(input_file, output_file)  
-skus = sku(output_file)  
-print(skus)
+    return result 
+
+
+for i in range(so_trang):
+    cut(input_file, output_file)  
+    skus = sku(output_file) 
+
+    array.append({
+        'sku': skus
+    }) 
+print(array)
