@@ -234,6 +234,10 @@ def extract_ma_van_don(text):
     match = re.search(r'Mã vận đơn[.: ]+\s*([A-Z0-9]+)', text)
     return match.group(1) if match else ""
 
+def extract_ma_don_hang(text):
+    match = re.search(r'Mã đơn hàng[.: ]+\s*([A-Z0-9]+)', text)
+    return match.group(1) if match else ""    
+
 #phần chạy code
 for i in range(so_trang): 
     # print(i)
@@ -244,7 +248,7 @@ for i in range(so_trang):
     value = extract_ma_van_don(trackings)
 
 
-    ma_don_hang = re.search(r'Mã đơn hàng[.: ]+\s*([A-Z0-9]+)', trackings)
+    ma_don_hang = extract_ma_don_hang(trackings)
 
    
 
