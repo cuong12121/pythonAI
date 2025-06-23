@@ -230,6 +230,10 @@ input_file3 = os.path.join(current_dir, 'file3.png')
 # sku = sku(input_file1)
 array = []
 
+def extract_ma_van_don(text):
+    match = re.search(r'Mã vận đơn[.: ]+\s*([A-Z0-9]+)', text)
+    return match.group(1) if match else ""
+
 #phần chạy code
 for i in range(so_trang): 
     # print(i)
@@ -237,14 +241,12 @@ for i in range(so_trang):
     
     trackings= tracking(input_file2)
     
-    ma_van_don = re.search(r'Mã vận đơn[.: ]+\s*([A-Z0-9]+)', trackings)
+    value = extract_ma_van_don(text)
+
+
     ma_don_hang = re.search(r'Mã đơn hàng[.: ]+\s*([A-Z0-9]+)', trackings)
 
-    if ma_van_don:
-        value = ma_van_don.group(1)
-
-    else:
-       value =""
+   
 
     arrayvd = [value, ma_don_hang.group(1)]
 
