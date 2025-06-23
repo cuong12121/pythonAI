@@ -248,11 +248,11 @@ for i in range(so_trang):
     value = extract_ma_van_don(trackings)
 
 
-    ma_don_hang = extract_ma_don_hang(trackings)
+    value_ma_don_hang = extract_ma_don_hang(trackings)
 
    
 
-    arrayvd = [value, ma_don_hang.group(1)]
+    arrayvd = [value, value_ma_don_hang]
 
 
     quantitys = quantity(input_file3)
