@@ -14,7 +14,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 # Define file paths (equivalent to __DIR__ in PHP)
 current_dir = os.path.dirname(os.path.abspath(__file__))
-input_file = os.path.join(current_dir, 't22.pdf')
+input_file = os.path.join(current_dir, 't23.pdf')
 output_file = os.path.join(current_dir, 'cropped1169.png')
 
 array =[]
@@ -90,4 +90,14 @@ for i in range(so_trang):
     array.append({
         'sku': skus
     }) 
-print(array)
+r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True)
+
+key_name = "orders:data1"
+
+# Nếu key tồn tại thì xóa
+
+
+# Ghi dữ liệu mới
+orders_json = json.dumps(array)
+r.set(key_name, orders_json)
+
