@@ -44,12 +44,32 @@ def cut_image(input_file,page):
 
         # -------- Cắt ảnh 1 --------
         with img.clone() as img1:
+           
+             # Crop image (x, y, width, height)
             x = 82
             y = 1900
             width = 88
             height = 1000
             img1.crop(x, y, width=width, height=height)
+
+            # 2. Resize (phóng to) – scale 2~4 lần là hợp lý
+            scale = 3
+            new_width = img1.width * scale
+            new_height = img1.height * scale
+            img1.resize(new_width, new_height)
+
+            # 3. Enhance màu sắc (tăng sáng, đậm màu, chỉnh màu)
+            img1.modulate(brightness=200, saturation=200, hue=100)
+
+            # 4. Làm nét ảnh (sharpen)
+            img1.sharpen(radius=2, sigma=1)
+
+            # 5. (Tùy chọn) chuyển ảnh về grayscale để OCR dễ hơn
+            img1.type = 'grayscale'
+           
+            # Set output format to PNG
             img1.format = 'png'
+           
             img1.save(filename='file1.png')
 
         # -------- Cắt ảnh 2 --------
