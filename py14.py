@@ -14,7 +14,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 # Define file paths (equivalent to __DIR__ in PHP)
 current_dir = os.path.dirname(os.path.abspath(__file__))
-input_file = os.path.join(current_dir, 't21.pdf')
+input_file = os.path.join(current_dir, 't22.pdf')
 output_file = os.path.join(current_dir, 'cropped1169.png')
 
 array =[]
