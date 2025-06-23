@@ -50,7 +50,7 @@ def sku(input_file, output_file):
         img.resize(new_width, new_height)
 
         # 3. Enhance màu sắc (tăng sáng, đậm màu, chỉnh màu)
-        img.modulate(brightness=300, saturation=300, hue=300)
+        img.modulate(brightness=500, saturation=200, hue=100)
 
         # 4. Làm nét ảnh (sharpen)
         img.sharpen(radius=2, sigma=1)
