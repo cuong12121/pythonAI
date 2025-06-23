@@ -17,7 +17,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 # Define file paths (equivalent to __DIR__ in PHP)
 current_dir = os.path.dirname(os.path.abspath(__file__))
 output_file = os.path.join(current_dir, 'cropped1169.png')
-input_file = os.path.join(current_dir, 't17.pdf')
+input_file = os.path.join(current_dir, 't18.pdf')
 
 def count_pdf_pages(input_file):
     with Image(filename=input_file) as img:
