@@ -199,7 +199,7 @@ def quantity(input_file, output_file):
 
         # OCR chỉ lấy số
         custom_config = r'--oem 3 --psm 6 outputbase digits'
-        result = pytesseract.image_to_string(thresh, config=custom_config)
+        result = pytesseract.image_to_string(thresh, config=custom_config, lang='vie')
         return result
 def tracking(input_file, output_file):
     # Initialize Imagick equivalent
