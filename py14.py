@@ -84,7 +84,7 @@ def sku(output_file):
 
 
 for i in range(so_trang):
-    cut(input_file, output_file)  
+    cut(input_file, output_file,i)  
     skus = sku(output_file) 
 
     array.append({
