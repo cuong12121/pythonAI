@@ -71,14 +71,14 @@ def sku(input_file, output_file):
     # pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
     # Load ảnh
-    image = cv2.imread(output_file)  # thay bằng đường dẫn ảnh của bạn
+    # image = cv2.imread(output_file)  # thay bằng đường dẫn ảnh của bạn
 
-    # Chuyển sang xám
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    # # Chuyển sang xám
+    # gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-    # Làm nét và threshold nhẹ (tùy ảnh)
-    gray = cv2.bilateralFilter(gray, 11, 17, 17)
-    _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    # # Làm nét và threshold nhẹ (tùy ảnh)
+    # gray = cv2.bilateralFilter(gray, 11, 17, 17)
+    # _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
     # OCR chỉ lấy số
     custom_config = r'--oem 3 --psm 6'
