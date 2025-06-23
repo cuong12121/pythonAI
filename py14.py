@@ -6,6 +6,7 @@ import sys
 import io
 import numpy as np
 import redis
+import json
 from PIL import Image
 from wand.image import Image
 from wand.color import Color
