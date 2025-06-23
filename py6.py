@@ -34,7 +34,7 @@ with Image(filename=f'{input_file}[0]', resolution=(300, 300)) as img:
     # Crop image (x, y, width, height)
     x = 400
     y = 130
-    width = 650
+    width = 720
     height = 210
     img.crop(x, y, width=width, height=height)
     
