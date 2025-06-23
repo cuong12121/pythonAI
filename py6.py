@@ -1,5 +1,5 @@
 import os
-
+import re
 import cv2
 import pytesseract
 
@@ -12,7 +12,7 @@ from wand.color import Color
 
 # Define file paths (equivalent to __DIR__ in PHP)
 current_dir = os.path.dirname(os.path.abspath(__file__))
-input_file = os.path.join(current_dir, 't15.pdf')
+input_file = os.path.join(current_dir, 't3.pdf')
 output_file = os.path.join(current_dir, 'cropped11698.png')
 
 # Initialize Imagick equivalent
@@ -32,10 +32,10 @@ with Image(filename=f'{input_file}[0]', resolution=(300, 300)) as img:
 
     
     # Crop image (x, y, width, height)
-    x = 500
+    x = 400
     y = 130
     width = 650
-    height = 150
+    height = 210
     img.crop(x, y, width=width, height=height)
     
     # Set output format to PNG
@@ -63,5 +63,23 @@ _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 custom_config = r'--oem 3 --psm 6'
 result = pytesseract.image_to_string(image, config=custom_config, lang='vie')  # nếu có tiếng Việt
 
+def extract_ma_van_don(text):
+    match = re.search(r'Mã vận đơn[.: ]+\s*([A-Z0-9]+)', text)
+    return match.group(1) if match else ""
 
-print("Kết quả OCR:", result)
+def extract_ma_don_hang(text):
+    match = re.search(r'Mã đơn hàng[.: ]+\s*([A-Z0-9]+)', text)
+    return match.group(1) if match else ""  
+
+
+value = extract_ma_van_don(result)
+
+
+value_ma_don_hang = extract_ma_don_hang(result)
+
+
+
+arrayvd = [value, value_ma_don_hang]
+
+
+print(arrayvd)

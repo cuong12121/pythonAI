@@ -54,10 +54,10 @@ def cut_image(input_file,page):
 
         # -------- Cắt ảnh 2 --------
         with img.clone() as img2:
-            x1 = 500
+            x1 = 400
             y1 = 130
             width1 = 650
-            height1 = 150
+            height1 = 210
             img2.crop(x1, y1, width=width1, height=height1)
             img2.format = 'png'
             img2.save(filename='file2.png')
