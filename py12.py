@@ -71,9 +71,9 @@ def sku(input_file, output_file):
     # pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
     # Load ảnh
-    # image = cv2.imread(output_file)  # thay bằng đường dẫn ảnh của bạn
+    image = cv2.imread(output_file)  # thay bằng đường dẫn ảnh của bạn
 
-    # # Chuyển sang xám
+    # Chuyển sang xám
     # gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
     # # Làm nét và threshold nhẹ (tùy ảnh)
