@@ -268,13 +268,14 @@ for i in range(so_trang):
 
 
 # Kết nối Redis
-r = redis.Redis(host='localhost', port=6379, db=0)
+
+
+r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True)
 
 key_name = "orders:data"
 
 # Nếu key tồn tại thì xóa
-if r.exists(key_name):
-    r.delete(key_name)
+
 
 # Ghi dữ liệu mới
 orders_json = json.dumps(array)
