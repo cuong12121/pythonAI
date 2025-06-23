@@ -241,7 +241,7 @@ for i in range(so_trang):
     
     trackings= tracking(input_file2)
     
-    value = extract_ma_van_don(text)
+    value = extract_ma_van_don(trackings)
 
 
     ma_don_hang = re.search(r'Mã đơn hàng[.: ]+\s*([A-Z0-9]+)', trackings)
