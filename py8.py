@@ -106,7 +106,7 @@ def sku(input_file):
     
 
     # Chỉ định đường dẫn Tesseract nếu cần
-    pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+    # pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
     # Load ảnh
     image = cv2.imread(input_file)  # thay bằng đường dẫn ảnh của bạn
@@ -130,7 +130,7 @@ def tracking(input_file):
     # sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
     # Chỉ định đường dẫn Tesseract nếu cần
-    pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+    # pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
     # Load ảnh
     image = cv2.imread(input_file)  # thay bằng đường dẫn ảnh của bạn
