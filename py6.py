@@ -12,7 +12,7 @@ from wand.color import Color
 
 # Define file paths (equivalent to __DIR__ in PHP)
 current_dir = os.path.dirname(os.path.abspath(__file__))
-input_file = os.path.join(current_dir, 't3.pdf')
+input_file = os.path.join(current_dir, 't20.pdf')
 output_file = os.path.join(current_dir, 'cropped11698.png')
 
 # Initialize Imagick equivalent
@@ -24,7 +24,7 @@ with Image(filename=f'{input_file}[0]', resolution=(300, 300)) as img:
         img.contrast()
     
     # Enhance image (similar to enhanceImage in PHP Imagick)
-    img.modulate(brightness=100, saturation=100, hue=100)
+    img.modulate(brightness=300, saturation=300, hue=300)
     
     # Sharpen image (radius=2, sigma=1)
     img.sharpen(radius=2, sigma=1)

@@ -37,7 +37,7 @@ def cut_image(input_file,page):
             img.contrast()
         
         # Enhance image
-        img.modulate(brightness=100, saturation=100, hue=100)
+        img.modulate(brightness=300, saturation=300, hue=300)
         
         # Sharpen image
         img.sharpen(radius=2, sigma=1)
@@ -67,7 +67,7 @@ def cut_image(input_file,page):
             for _ in range(3):
                 img.contrast()  # Increase contrast
 
-            img.modulate(brightness=200, saturation=200, hue=200)  # Enhance image
+            img.modulate(brightness=300, saturation=300, hue=300)  # Enhance image
 
             img.sharpen(radius=2, sigma=1)  # Sharpen image
 
