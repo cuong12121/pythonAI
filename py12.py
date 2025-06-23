@@ -53,7 +53,7 @@ def sku(input_file, output_file):
         img.modulate(brightness=200, saturation=200, hue=400)
 
         # 4. Làm nét ảnh (sharpen)
-        img.sharpen(radius=1, sigma=7)
+        # img.sharpen(radius=1, sigma=7)
 
         # 5. (Tùy chọn) chuyển ảnh về grayscale để OCR dễ hơn
         img.type = 'grayscale'
