@@ -4,6 +4,8 @@ import cv2
 import pytesseract
 import sys
 import io
+import redis
+import json
 import numpy as np
 from PIL import Image
 from wand.image import Image
@@ -263,5 +265,18 @@ for i in range(so_trang):
     })
 
 # # image = cv2.imread(input_file2)
-print(array)
+
+
+# Kết nối Redis
+r = redis.Redis(host='localhost', port=6379, db=0)
+
+key_name = "orders:data"
+
+# Nếu key tồn tại thì xóa
+if r.exists(key_name):
+    r.delete(key_name)
+
+# Ghi dữ liệu mới
+orders_json = json.dumps(array)
+r.set(key_name, orders_json)
        
