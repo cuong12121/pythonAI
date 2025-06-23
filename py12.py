@@ -65,7 +65,7 @@ def sku(input_file, output_file):
         # Save the output
         img.save(filename=output_file)
 
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    # sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
     # Chỉ định đường dẫn Tesseract nếu cần
     # pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"

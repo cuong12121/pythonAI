@@ -53,7 +53,7 @@ def cut_image(input_file,page):
             img1.crop(x, y, width=width, height=height)
 
             # 2. Resize (phóng to) – scale 2~4 lần là hợp lý
-            scale = 3
+            scale = 4
             new_width = img1.width * scale
             new_height = img1.height * scale
             img1.resize(new_width, new_height)
