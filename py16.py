@@ -140,7 +140,7 @@ def quantity(input_file):
     image = cv2.imread('result_no_letters.png')  # thay bằng đường dẫn ảnh của bạn
 
     # Chuyển sang xám
-    # gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
     # Làm nét và threshold nhẹ (tùy ảnh)
     # gray = cv2.bilateralFilter(gray, 11, 17, 17)
