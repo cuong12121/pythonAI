@@ -16,7 +16,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 # Define file paths (equivalent to __DIR__ in PHP)
 current_dir = os.path.dirname(os.path.abspath(__file__))
-input_file = os.path.join(current_dir, 't10.pdf')
+input_file = os.path.join(current_dir, 't26.pdf')
 output_file = os.path.join(current_dir, 'cropped1169.png')
 
 array =[]
@@ -99,7 +99,7 @@ for i in range(so_trang):
     array.append({
         'sku': skuss
     }) 
-    
+
 r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True)
 
 key_name = "orders:data_sku_1"
