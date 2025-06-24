@@ -148,7 +148,7 @@ def quantity(input_file):
 
     # OCR chỉ lấy số
     custom_config = r'--oem 3 --psm 6 outputbase digits'
-    result = pytesseract.image_to_string(image, config=custom_config, lang='vie+eng')
+    result = pytesseract.image_to_string(image, config=custom_config, lang='eng')
     return result
 
 
