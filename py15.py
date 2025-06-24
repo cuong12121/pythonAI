@@ -5,7 +5,7 @@ import pytesseract
 import sys
 import io
 import numpy as np
-import redis
+
 import json
 from PIL import Image
 from wand.image import Image
@@ -16,7 +16,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 # Define file paths (equivalent to __DIR__ in PHP)
 current_dir = os.path.dirname(os.path.abspath(__file__))
-input_file = os.path.join(current_dir, 't6.pdf')
+input_file = os.path.join(current_dir, 't7.pdf')
 output_file = os.path.join(current_dir, 'cropped1169.png')
 
 array =[]
@@ -48,7 +48,7 @@ def cut(input_file, output_file, page):
         img.crop(x, y, width=width, height=height)
 
         # 2. Resize (phóng to) – scale 2~4 lần là hợp lý
-        scale = 3
+        scale = 1
         new_width = img.width * scale
         new_height = img.height * scale
         img.resize(new_width, new_height)
@@ -92,14 +92,16 @@ for i in range(so_trang):
     array.append({
         'sku': skus
     }) 
-r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True)
+print(array)
 
-key_name = "orders:data_sku_1"
+# r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True)
 
-# Nếu key tồn tại thì xóa
+# key_name = "orders:data_sku_1"
+
+# # Nếu key tồn tại thì xóa
 
 
-# Ghi dữ liệu mới
-orders_json = json.dumps(array)
-r.set(key_name, orders_json)
+# # Ghi dữ liệu mới
+# orders_json = json.dumps(array)
+# r.set(key_name, orders_json)
 
