@@ -72,6 +72,11 @@ def cut_image(input_file,page):
             # Lưu ảnh cắt được
             cropped_img.save('file3.png')
 
+def convert_quantity_to_array(string)
+    lines = string.splitlines()
+    result = [line for line in lines if '.' not in line]
+    return result
+
 
 def quantity(input_file):
 
@@ -163,7 +168,7 @@ for i in range(so_trang):
     quantitys = quantity(input_file3) 
 
     array.append({
-        'quantity': quantitys
+        'quantity': convert_quantity_to_array(quantitys)
     }) 
 r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True)
 
