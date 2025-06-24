@@ -5,7 +5,7 @@ import pytesseract
 import sys
 import io
 import numpy as np
-import redis
+
 import json
 from PIL import Image
 from wand.image import Image
@@ -100,14 +100,4 @@ for i in range(so_trang):
         'sku': skuss
     }) 
 
-r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True)
-
-key_name = "orders:data_sku_1"
-
-# Nếu key tồn tại thì xóa
-
-
-# Ghi dữ liệu mới
-orders_json = json.dumps(array)
-r.set(key_name, orders_json)
-
+print(array)
