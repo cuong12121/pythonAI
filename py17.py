@@ -81,23 +81,23 @@ def sku(output_file):
 
     # OCR chỉ lấy số
     custom_config = r'--oem 3 --psm 6'
-    result = pytesseract.image_to_string(image,lang='vie')  # nếu có tiếng Việt
+    result = pytesseract.image_to_string(image,custom_config,lang='eng')  # nếu có tiếng Việt
     return result 
 
 
-for i in range(so_trang):
-    cut(input_file, output_file,i)  
-    skus = sku(output_file) 
 
-    # pattern = r'\b[A-Za-z0-9]{4}\s*-\s*[A-Za-z]{2}\s*-\s*\d{2}\s*-\s*[A-Za-z]{3}\b'
+cut(input_file, output_file,18)  
+skus = sku(output_file) 
 
-    # clean_text = skus.replace('\n', ' ').replace('\r', ' ')
+# pattern = r'\b[A-Za-z0-9]{4}\s*-\s*[A-Za-z]{2}\s*-\s*\d{2}\s*-\s*[A-Za-z]{3}\b'
 
-    # skuss = re.findall(pattern, clean_text)
+# clean_text = skus.replace('\n', ' ').replace('\r', ' ')
 
-  
-    array.append({
-        'sku': skus
-    }) 
+# skuss = re.findall(pattern, clean_text)
+
+
+array.append({
+    'sku': skus
+}) 
 
 print(array)
