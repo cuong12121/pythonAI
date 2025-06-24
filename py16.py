@@ -72,7 +72,7 @@ def cut_image(input_file,page):
             # Lưu ảnh cắt được
             cropped_img.save('file3.png')
 
-def convert_quantity_to_array(string)
+def convert_quantity_to_array(string):
     lines = string.splitlines()
     result = [line for line in lines if '.' not in line]
     return result
