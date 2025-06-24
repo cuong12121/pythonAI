@@ -159,7 +159,7 @@ so_trang = count_pdf_pages(input_file)
 array = []
 
 for i in range(so_trang):
-    cut(input_file, output_file,i)  
+    cut_image(input_file, i)  
     quantitys = quantity(input_file3) 
 
     array.append({
