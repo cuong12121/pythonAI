@@ -55,11 +55,10 @@ def cut_image(input_file,page):
 
             # Ví dụ: cắt từ 40% chiều ngang và 20% chiều cao,
             # với vùng cắt rộng 30% và cao 50%
-            x_pct = 0.3482
-            y_pct = 0.57
+            x_pct = 0.349
+            y_pct = 0.54
             width_pct = 0.03
             height_pct = 0.25
-
 
             # Tính toán toạ độ cắt
             x = int(x_pct * img_width)
@@ -74,9 +73,12 @@ def cut_image(input_file,page):
             cropped_img.save('file3.png')
 
 def convert_quantity_to_array(string):
-    lines = string.splitlines()
-    result = [line for line in lines if '.' not in line]
-    return result
+    text_sau_xoa = re.sub(r'^.*?\n', '', string)
+
+    # Tách các dòng còn lại thành mảng
+    lines = text_sau_xoa.splitlines()
+
+    return lines
 
 
 def quantity(input_file):
@@ -171,7 +173,7 @@ for i in range(so_trang):
     quantitys = quantity(input_file3) 
 
     array.append({
-        'quantity':quantitys
+        'quantity':convert_quantity_to_array(quantitys)
     }) 
 
    
