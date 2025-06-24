@@ -143,12 +143,12 @@ def quantity(input_file):
     # gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
     # Làm nét và threshold nhẹ (tùy ảnh)
-    gray = cv2.bilateralFilter(gray, 11, 17, 17)
-    _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    # gray = cv2.bilateralFilter(gray, 11, 17, 17)
+    # _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
     # OCR chỉ lấy số
-    custom_config = r'--oem 3 --psm 11 outputbase digits'
-    result = pytesseract.image_to_string(thresh, config=custom_config)
+    custom_config = r'--oem 3 --psm 6 outputbase digits'
+    result = pytesseract.image_to_string(thresh, config=custom_config, lang='vie+eng')
     return result
 
 
