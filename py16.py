@@ -4,7 +4,7 @@ import cv2
 import pytesseract
 import sys
 import io
-import redis
+# import redis
 import json
 import numpy as np
 from PIL import Image
@@ -147,7 +147,7 @@ def quantity(input_file):
     _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
     # OCR chỉ lấy số
-    custom_config = r'--oem 3 --psm 6 outputbase digits'
+    custom_config = r'--oem 3 --psm 6 -c tessedit_char_whitelist=0123456789'
     result = pytesseract.image_to_string(thresh, config=custom_config)
     return result
 
@@ -170,10 +170,10 @@ for i in range(so_trang):
     quantitys = quantity(input_file3) 
 
     array.append({
-        'quantity':convert_quantity_to_array(quantitys)
+        'quantity':quantitys.replace('5 ', '')
     }) 
 
-# print(array)    
+   
 r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True)
 
 key_name = "orders:data_quantity_1"
