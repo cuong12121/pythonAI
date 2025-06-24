@@ -94,7 +94,7 @@ for i in range(so_trang):
     }) 
 r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True)
 
-key_name = "orders:data1"
+key_name = "orders:data_sku_1"
 
 # Nếu key tồn tại thì xóa
 
