@@ -147,14 +147,14 @@ def quantity(input_file):
     _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
     # OCR chỉ lấy số
-    custom_config = r'--oem 3 --psm 11 outputbase digits'
+    custom_config = r'--oem 1 --psm 6 outputbase digits'
     result = pytesseract.image_to_string(thresh, config=custom_config)
     return result
 
 
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
-input_file = os.path.join(current_dir, 't3.pdf')
+input_file = os.path.join(current_dir, 't32.pdf')
 output_file = os.path.join(current_dir, 'cropped1169.png')
 
 input_file3 = os.path.join(current_dir, 'file3.png')
