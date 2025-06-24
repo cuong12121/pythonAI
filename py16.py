@@ -177,9 +177,19 @@ array = []
 #         'quantity':convert_quantity_to_array(quantitys)
 #     }) 
 
-for x in range(10):
+for i in range(so_trang):
     # Đọc ảnh
-    image = cv2.imread(image_path)
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    input_file = os.path.join(current_dir, 't32.pdf')
+    output_file = os.path.join(current_dir, 'cropped1169.png')
+
+    input_file3 = os.path.join(current_dir, 'file3.png')
+    cut_image(input_file, i)  
+
+
+    # Đường dẫn ảnh bảng
+    image_path = 'file3.png'  # hoặc đường dẫn đầy đủ nếu nằm ngoài thư mục chạy
+
 
     # Chuyển sang ảnh xám
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
