@@ -162,6 +162,7 @@ output_file = os.path.join(current_dir, 'cropped1169.png')
 
 input_file3 = os.path.join(current_dir, 'file3.png')
 so_trang = count_pdf_pages(input_file)
+image_path = 'file3.png' 
 
 # sku = sku(input_file1)
 array = []
