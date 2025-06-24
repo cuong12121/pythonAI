@@ -55,8 +55,8 @@ def cut_image(input_file,page):
 
             # Ví dụ: cắt từ 40% chiều ngang và 20% chiều cao,
             # với vùng cắt rộng 30% và cao 50%
-            x_pct = 0.349
-            y_pct = 0.54
+            x_pct = 0.3482
+            y_pct = 0.57
             width_pct = 0.03
             height_pct = 0.25
 
@@ -168,12 +168,46 @@ array = []
 
 
 
-for i in range(so_trang):
-    cut_image(input_file, i)  
-    quantitys = quantity(input_file3) 
+# for i in range(so_trang):
+#     cut_image(input_file, i)  
+#     quantitys = quantity(input_file3) 
 
-    array.append({
-        'quantity':convert_quantity_to_array(quantitys)
+#     array.append({
+#         'quantity':convert_quantity_to_array(quantitys)
+#     }) 
+
+for x in range(10):
+    # Đọc ảnh
+    image = cv2.imread(image_path)
+
+    # Chuyển sang ảnh xám
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    # Nhị phân ảnh (đen trắng)
+    _, thresh = cv2.threshold(gray, 150, 255, cv2.THRESH_BINARY_INV)
+
+    # Tìm contours
+    contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+    # Danh sách kết quả
+    numbers = []
+
+    # Vòng lặp qua từng contour
+    for cnt in contours:
+        x, y, w, h = cv2.boundingRect(cnt)
+        if w > 10 and h > 10:  # Lọc những vùng quá nhỏ
+            roi = gray[y:y+h, x:x+w]  # Cắt vùng ảnh chứa ký tự
+            # Nhận diện ký tự bằng Tesseract (chỉ lấy số)
+            text = pytesseract.image_to_string(roi, config='--psm 10 -c tessedit_char_whitelist=0123456789').strip()
+            digits = ''.join(filter(str.isdigit, text))
+            if digits:
+                numbers.append(digits)
+
+    # Sắp xếp theo vị trí trên ảnh (từ trên xuống dưới, trái sang phải)
+    numbers = sorted(numbers)
+
+        array.append({
+        'quantity':numbers
     }) 
 
    
