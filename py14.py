@@ -16,7 +16,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 # Define file paths (equivalent to __DIR__ in PHP)
 current_dir = os.path.dirname(os.path.abspath(__file__))
-input_file = os.path.join(current_dir, 't6.pdf')
+input_file = os.path.join(current_dir, 't10.pdf')
 output_file = os.path.join(current_dir, 'cropped1169.png')
 
 array =[]
@@ -48,19 +48,19 @@ def cut(input_file, output_file, page):
         img.crop(x, y, width=width, height=height)
 
         # 2. Resize (phóng to) – scale 2~4 lần là hợp lý
-        scale = 3
-        new_width = img.width * scale
-        new_height = img.height * scale
-        img.resize(new_width, new_height)
+        # scale = 3
+        # new_width = img.width * scale
+        # new_height = img.height * scale
+        # img.resize(new_width, new_height)
 
-        # 3. Enhance màu sắc (tăng sáng, đậm màu, chỉnh màu)
-        img.modulate(brightness=200, saturation=200, hue=100)
+        # # 3. Enhance màu sắc (tăng sáng, đậm màu, chỉnh màu)
+        # img.modulate(brightness=200, saturation=200, hue=100)
 
-        # 4. Làm nét ảnh (sharpen)
-        # img.sharpen(radius=1, sigma=7)
+        # # 4. Làm nét ảnh (sharpen)
+        # # img.sharpen(radius=1, sigma=7)
 
-        # 5. (Tùy chọn) chuyển ảnh về grayscale để OCR dễ hơn
-        img.type = 'grayscale'
+        # # 5. (Tùy chọn) chuyển ảnh về grayscale để OCR dễ hơn
+        # img.type = 'grayscale'
 
        
         # Set output format to PNG
