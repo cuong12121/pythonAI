@@ -4,7 +4,7 @@ import cv2
 import pytesseract
 import sys
 import io
-import redis
+# import redis
 import json
 import numpy as np
 from PIL import Image
@@ -147,14 +147,14 @@ def quantity(input_file):
     _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
     # OCR chỉ lấy số
-    custom_config = r'--oem 3 --psm 6 outputbase digits'
+    custom_config = r'--oem 3 --psm 11 outputbase digits'
     result = pytesseract.image_to_string(thresh, config=custom_config)
     return result
 
 
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
-input_file = os.path.join(current_dir, 't32.pdf')
+input_file = os.path.join(current_dir, 't3.pdf')
 output_file = os.path.join(current_dir, 'cropped1169.png')
 
 input_file3 = os.path.join(current_dir, 'file3.png')
@@ -172,14 +172,15 @@ for i in range(so_trang):
     array.append({
         'quantity':convert_quantity_to_array(quantitys)
     }) 
-    
-r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True)
 
-key_name = "orders:data_quantity_1"
+print(array)    
+# r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True)
 
-# Nếu key tồn tại thì xóa
+# key_name = "orders:data_quantity_1"
+
+# # Nếu key tồn tại thì xóa
 
 
-# Ghi dữ liệu mới
-orders_json = json.dumps(array)
-r.set(key_name, orders_json)
+# # Ghi dữ liệu mới
+# orders_json = json.dumps(array)
+# r.set(key_name, orders_json)
