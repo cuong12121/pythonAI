@@ -48,10 +48,10 @@ def cut(input_file, output_file, page):
         img.crop(x, y, width=width, height=height)
 
         # 2. Resize (phóng to) – scale 2~4 lần là hợp lý
-        scale = 1
-        new_width = img.width * scale
-        new_height = img.height * scale
-        img.resize(new_width, new_height)
+        # scale = 1
+        # new_width = img.width * scale
+        # new_height = img.height * scale
+        # img.resize(new_width, new_height)
 
         # 3. Enhance màu sắc (tăng sáng, đậm màu, chỉnh màu)
         img.modulate(brightness=200, saturation=200, hue=100)
