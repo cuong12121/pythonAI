@@ -165,4 +165,13 @@ for i in range(so_trang):
     array.append({
         'quantity': quantitys
     }) 
-print(array)
+r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True)
+
+key_name = "orders:data_quantity_1"
+
+# Nếu key tồn tại thì xóa
+
+
+# Ghi dữ liệu mới
+orders_json = json.dumps(array)
+r.set(key_name, orders_json)
