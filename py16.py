@@ -4,7 +4,7 @@ import cv2
 import pytesseract
 import sys
 import io
-# import redis
+import redis
 import json
 import numpy as np
 from PIL import Image
