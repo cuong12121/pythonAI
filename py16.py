@@ -203,12 +203,12 @@ for x in range(10):
             if digits:
                 numbers.append(digits)
 
-    # Sắp xếp theo vị trí trên ảnh (từ trên xuống dưới, trái sang phải)
-    numbers = sorted(numbers)
+        # Sắp xếp theo vị trí trên ảnh (từ trên xuống dưới, trái sang phải)
+         numbers = sorted(numbers)
 
         array.append({
         'quantity':numbers
-    }) 
+        }) 
 
    
 r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True)
