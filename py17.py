@@ -89,15 +89,15 @@ def sku(output_file):
 cut(input_file, output_file,18)  
 skus = sku(output_file) 
 
-# pattern = r'\b[A-Za-z0-9]{4}\s*-\s*[A-Za-z]{2}\s*-\s*\d{2}\s*-\s*[A-Za-z]{3}\b'
+pattern = r'\b[A-Za-z0-9]{4}\s*-\s*[A-Za-z]{2}\s*-\s*\d{2}\s*-\s*[A-Za-z]{3}\b'
 
-# clean_text = skus.replace('\n', ' ').replace('\r', ' ')
+clean_text = skus.replace('\n', ' ').replace('\r', ' ')
 
-# skuss = re.findall(pattern, clean_text)
+skuss = re.findall(pattern, clean_text)
 
 
 array.append({
-    'sku': skus
+    'sku': skuss
 }) 
 
 print(array)
