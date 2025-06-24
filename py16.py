@@ -190,7 +190,7 @@ for i in range(so_trang):
     # Đường dẫn ảnh bảng
     image_path = 'file3.png'  # hoặc đường dẫn đầy đủ nếu nằm ngoài thư mục chạy
 
-
+    image = cv2.imread(image_path)
     # Chuyển sang ảnh xám
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
