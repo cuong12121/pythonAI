@@ -16,7 +16,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 # Define file paths (equivalent to __DIR__ in PHP)
 current_dir = os.path.dirname(os.path.abspath(__file__))
-input_file = os.path.join(current_dir, 't31.pdf')
+input_file = os.path.join(current_dir, 't32.pdf')
 output_file = os.path.join(current_dir, 'cropped1169.png')
 
 array =[]
@@ -81,7 +81,7 @@ def sku(output_file):
 
     # OCR chỉ lấy số
     custom_config = r'--oem 3 --psm 11'
-    result = pytesseract.image_to_string(image, config=custom_config, lang='vie')  # nếu có tiếng Việt
+    result = pytesseract.image_to_string(image, config=custom_config, lang='vie+eng')  # nếu có tiếng Việt
     return result 
 
 
