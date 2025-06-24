@@ -80,7 +80,7 @@ def sku(output_file):
     _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
     # OCR chỉ lấy số
-    # custom_config = r'--oem 3 --psm 6'
+    custom_config = r'--oem 3 --psm 6'
     result = pytesseract.image_to_string(image,lang='eng')  # nếu có tiếng Việt
     return result 
 
@@ -89,15 +89,15 @@ for i in range(so_trang):
     cut(input_file, output_file,i)  
     skus = sku(output_file) 
 
-    pattern = r'\b[A-Za-z0-9]{4}\s*-\s*[A-Za-z]{2}\s*-\s*\d{2}\s*-\s*[A-Za-z]{3}\b'
+    # pattern = r'\b[A-Za-z0-9]{4}\s*-\s*[A-Za-z]{2}\s*-\s*\d{2}\s*-\s*[A-Za-z]{3}\b'
 
-    clean_text = skus.replace('\n', ' ').replace('\r', ' ')
+    # clean_text = skus.replace('\n', ' ').replace('\r', ' ')
 
-    skuss = re.findall(pattern, clean_text)
+    # skuss = re.findall(pattern, clean_text)
 
   
     array.append({
-        'sku': skuss
+        'sku': skus
     }) 
 
 print(array)
