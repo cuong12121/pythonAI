@@ -55,7 +55,7 @@ def cut_image(input_file,page):
 
             # Ví dụ: cắt từ 40% chiều ngang và 20% chiều cao,
             # với vùng cắt rộng 30% và cao 50%
-             x_pct = 0.3482
+            x_pct = 0.3482
             y_pct = 0.57
             width_pct = 0.03
             height_pct = 0.25
