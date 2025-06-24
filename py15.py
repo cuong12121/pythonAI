@@ -54,13 +54,13 @@ def cut(input_file, output_file, page):
         # img.resize(new_width, new_height)
 
         # 3. Enhance màu sắc (tăng sáng, đậm màu, chỉnh màu)
-        img.modulate(brightness=200, saturation=200, hue=100)
+        # img.modulate(brightness=200, saturation=200, hue=100)
 
         # 4. Làm nét ảnh (sharpen)
         # img.sharpen(radius=1, sigma=7)
 
         # 5. (Tùy chọn) chuyển ảnh về grayscale để OCR dễ hơn
-        img.type = 'grayscale'
+        # img.type = 'grayscale'
 
        
         # Set output format to PNG
