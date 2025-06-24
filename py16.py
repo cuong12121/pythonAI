@@ -12,8 +12,9 @@ from wand.image import Image
 from wand.color import Color
 sys.stdout.reconfigure(encoding='utf-8')
 
-so_trang = count_pdf_pages(input_file)
-# print(f"Số trang PDF: {so_trang}")
+def count_pdf_pages(input_file):
+    with Image(filename=input_file) as img:
+        return len(img.sequence)
 
 def cut_image(input_file,page):
     # phần cắt ảnh thành 3 ảnh để check
