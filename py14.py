@@ -101,7 +101,7 @@ for i in range(so_trang):
         'sku': skuss
     }) 
 
-    print("đã chạy xong trang "{i})
+    print(f"đã chạy xong trang {i}")
 
 r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True)
 
