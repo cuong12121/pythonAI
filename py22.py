@@ -70,44 +70,42 @@ def cut_image(input_file,page):
             cropped_img.save('file3.png')
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
-input_file = os.path.join(current_dir, 't32.pdf')
+input_file = os.path.join(current_dir, 't33.pdf')
 output_file = os.path.join(current_dir, 'cropped1169.png')
 
 input_file3 = os.path.join(current_dir, 'file3.png')
-cut_image(input_file, 36)  
+cut_image(input_file, 29)  
 
 
 # Đường dẫn ảnh bảng
 image_path = 'file3.png'  # hoặc đường dẫn đầy đủ nếu nằm ngoài thư mục chạy
 
-# Đọc ảnh
-image = cv2.imread(image_path)
+img = cv2.imread(image_path)
 
 # Chuyển sang ảnh xám
-gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-# Nhị phân ảnh (đen trắng)
-_, thresh = cv2.threshold(gray, 150, 255, cv2.THRESH_BINARY_INV)
+# Nhị phân hóa để tìm đường viền
+_, binary = cv2.threshold(gray, 200, 255, cv2.THRESH_BINARY_INV)
 
-# Tìm contours
-contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+# Dò đường kẻ bằng morphology
+kernel_h = cv2.getStructuringElement(cv2.MORPH_RECT, (40, 1))
+kernel_v = cv2.getStructuringElement(cv2.MORPH_RECT, (1, 40))
+horizontal = cv2.morphologyEx(binary, cv2.MORPH_OPEN, kernel_h)
+vertical = cv2.morphologyEx(binary, cv2.MORPH_OPEN, kernel_v)
+lines = cv2.bitwise_or(horizontal, vertical)
 
-# Danh sách kết quả
-numbers = []
+# Mask xóa viền
+mask = cv2.bitwise_not(lines)
+no_border = cv2.bitwise_and(img, img, mask=mask)
+no_border[mask == 0] = [255, 255, 255]  # chuyển viền về trắng
 
-# Vòng lặp qua từng contour
-for cnt in contours:
-    x, y, w, h = cv2.boundingRect(cnt)
-    if w > 10 and h > 10:  # Lọc những vùng quá nhỏ
-        roi = gray[y:y+h, x:x+w]  # Cắt vùng ảnh chứa ký tự
-        # Nhận diện ký tự bằng Tesseract (chỉ lấy số)
-        text = pytesseract.image_to_string(roi, config='--psm 10 -c tessedit_char_whitelist=0123456789').strip()
-        digits = ''.join(filter(str.isdigit, text))
-        if digits:
-            numbers.append(digits)
+# Resize to giúp OCR chính xác hơn
+resized = cv2.resize(no_border, None, fx=2, fy=2, interpolation=cv2.INTER_LINEAR)
+gray2 = cv2.cvtColor(resized, cv2.COLOR_BGR2GRAY)
 
-# Sắp xếp theo vị trí trên ảnh (từ trên xuống dưới, trái sang phải)
-numbers = sorted(numbers)
+# Dùng pytesseract đọc số
+custom_config = r'--oem 3 --psm 6 outputbase digits'
+text = pytesseract.image_to_string(gray2, config=custom_config)
 
-# In kết quả
-print("Tất cả các số trong bảng:", numbers)
+print("Kết quả OCR:", text.strip())
