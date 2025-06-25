@@ -74,7 +74,7 @@ input_file = os.path.join(current_dir, 't32.pdf')
 output_file = os.path.join(current_dir, 'cropped1169.png')
 
 input_file3 = os.path.join(current_dir, 'file3.png')
-cut_image(input_file, 12)  
+cut_image(input_file, 26)  
 
 
 # Đường dẫn ảnh bảng
