@@ -209,7 +209,7 @@ for i in range(so_trang):
         if w > 10 and h > 10:  # Lọc những vùng quá nhỏ
             roi = gray[y:y+h, x:x+w]  # Cắt vùng ảnh chứa ký tự
             # Nhận diện ký tự bằng Tesseract (chỉ lấy số)
-            text = pytesseract.image_to_string(roi, config='--psm 10 -c tessedit_char_whitelist=0123456789').strip()
+            text = pytesseract.image_to_string(roi, config='--psm 10 -c tessedit_char_whitelist=0123456789',lang='vie').strip()
             digits = ''.join(filter(str.isdigit, text))
             if digits:
                 numbers.append(digits)
