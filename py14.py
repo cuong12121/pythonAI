@@ -82,7 +82,7 @@ def sku(output_file):
 
     # OCR chỉ lấy số
     custom_config = r'--oem 3 --psm 6'
-    result = pytesseract.image_to_string(image, config=custom_config, lang='vie+eng')  # nếu có tiếng Việt
+    result = pytesseract.image_to_string(image, config=custom_config, lang='vie')  # nếu có tiếng Việt
     return result 
 
 
@@ -95,13 +95,13 @@ for i in range(so_trang):
     clean_text = skus.replace('\n', ' ').replace('\r', ' ')
 
     skuss = re.findall(pattern, clean_text)
-    time.sleep(2)  
+    
   
     array.append({
         'sku': skuss
     }) 
 
-    print(f"đã chạy xong trang {i}")
+
 
 r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True)
 
