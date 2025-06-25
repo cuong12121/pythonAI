@@ -7,6 +7,7 @@ import io
 import numpy as np
 import redis
 import json
+import time
 from PIL import Image
 from wand.image import Image
 from wand.color import Color
@@ -16,7 +17,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 # Define file paths (equivalent to __DIR__ in PHP)
 current_dir = os.path.dirname(os.path.abspath(__file__))
-input_file = os.path.join(current_dir, 't36.pdf')
+input_file = os.path.join(current_dir, 't37.pdf')
 output_file = os.path.join(current_dir, 'cropped1169.png')
 
 array =[]
@@ -94,7 +95,7 @@ for i in range(so_trang):
     clean_text = skus.replace('\n', ' ').replace('\r', ' ')
 
     skuss = re.findall(pattern, clean_text)
-
+    time.sleep(8)  
   
     array.append({
         'sku': skuss
