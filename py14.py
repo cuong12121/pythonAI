@@ -95,11 +95,13 @@ for i in range(so_trang):
     clean_text = skus.replace('\n', ' ').replace('\r', ' ')
 
     skuss = re.findall(pattern, clean_text)
-    time.sleep(8)  
+    time.sleep(6)  
   
     array.append({
         'sku': skuss
     }) 
+
+    print('đã chạy xong trang'{i})
 
 r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True)
 
