@@ -16,7 +16,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 # Define file paths (equivalent to __DIR__ in PHP)
 current_dir = os.path.dirname(os.path.abspath(__file__))
-input_file = os.path.join(current_dir, 't36.pdf')
+input_file = os.path.join(current_dir, 't37.pdf')
 output_file = os.path.join(current_dir, 'cropped1169.png')
 
 array =[]
@@ -80,25 +80,25 @@ def sku(output_file):
     # _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
     # OCR chỉ lấy số
-    custom_config = r'--oem 3 --psm 11'
-    result = pytesseract.image_to_string(image, config=custom_config, lang='vie+eng')  # nếu có tiếng Việt
+    custom_config = r'--oem 3 --psm 6'
+    result = pytesseract.image_to_string(image, config=custom_config, lang='vie')  # nếu có tiếng Việt
     return result 
 
 
-for i in range(so_trang):
-    cut(input_file, output_file,i)  
-    skus = sku(output_file) 
 
-    pattern = r'\b[A-Za-z0-9]{4}\s*-\s*[A-Za-z]{2}\s*-\s*\d{2}\s*-\s*[A-Za-z]{3}\b'
+cut(input_file, output_file,116)  
+skus = sku(output_file) 
 
-    clean_text = skus.replace('\n', ' ').replace('\r', ' ')
+pattern = r'\b[A-Za-z0-9]{4}\s*-\s*[A-Za-z]{2}\s*-\s*\d{2}\s*-\s*[A-Za-z]{3}\b'
 
-    skuss = re.findall(pattern, clean_text)
+clean_text = skus.replace('\n', ' ').replace('\r', ' ')
 
-  
-    array.append({
-        'sku': skuss
-    }) 
+skuss = re.findall(pattern, clean_text)
+
+
+array.append({
+    'sku': skuss
+}) 
 print(array)    
 
 # r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True)
