@@ -83,28 +83,26 @@ def sku(output_file):
     custom_config = r'--oem 3 --psm 6'
 
 
-
-    result = pytesseract.image_to_string(image, lang='eng',config='--tessdata-dir /opt/tessdata')  # nếu có tiếng Việt
+    result = pytesseract.image_to_string(image, config=custom_config, lang='eng')  # nếu có tiếng Việt
     return result 
 
 
 
 cut(input_file, output_file,116)  
 skus = sku(output_file) 
-
-# skus = re.sub(r"[^a-zA-Z0-9\- ]", "", skus)
-
-
-# pattern = r'\b[A-Za-z0-9]{4}\s*-\s*[A-Za-z]{2}\s*-\s*\d{2}\s*-\s*[A-Za-z]{3}\b'
-
-# clean_text = skus.replace('\n', ' ').replace('\r', ' ')
-
-# skuss = re.findall(pattern, clean_text)
+skus = re.sub(r"[^a-zA-Z0-9\- ]", "", skus)
 
 
-# array.append({
-#     'sku': skuss
-# }) 
+pattern = r'\b[A-Za-z0-9]{4}\s*-\s*[A-Za-z]{2}\s*-\s*\d{2}\s*-\s*[A-Za-z]{3}\b'
+
+clean_text = skus.replace('\n', ' ').replace('\r', ' ')
+
+skuss = re.findall(pattern, clean_text)
+
+
+array.append({
+    'sku': skuss
+}) 
 print(skus)    
 
 # r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True)
