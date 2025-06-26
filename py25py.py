@@ -83,12 +83,12 @@ def sku(output_file):
     custom_config = r'--oem 3 --psm 6'
 
 
-    result = pytesseract.image_to_string(image, config=custom_config, lang='eng')  # nếu có tiếng Việt
+    result = pytesseract.image_to_string(image, config=custom_config, lang='vie+eng')  # nếu có tiếng Việt
     return result 
 
 
 
-cut(input_file, output_file,7)  
+cut(input_file, output_file,116)  
 skus = sku(output_file) 
 skus = re.sub(r"[^a-zA-Z0-9\- ]", "", skus)
 
