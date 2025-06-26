@@ -81,7 +81,10 @@ def sku(output_file):
 
     # OCR chỉ lấy số
     custom_config = r'--oem 3 --psm 6'
-    result = pytesseract.image_to_string(image, config=custom_config, lang='eng')  # nếu có tiếng Việt
+
+    
+
+    result = pytesseract.image_to_string(image, config='--tessdata-dir /opt/tessdata', lang='eng')  # nếu có tiếng Việt
     return result 
 
 
