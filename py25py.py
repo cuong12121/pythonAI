@@ -83,7 +83,7 @@ def sku(output_file):
     custom_config = r'--oem 3 --psm 6 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789- '
 
 
-    result = pytesseract.image_to_string(image,  lang='vie',config=custom_config,)  # nếu có tiếng Việt
+    result = pytesseract.image_to_string(image,  lang='vie')  # nếu có tiếng Việt
     return result 
 
 
