@@ -71,19 +71,23 @@ def cut(input_file, output_file, page):
         img.save(filename=output_file)
 def sku(output_file):
      # Load ảnh
-    image = cv2.imread(output_file)  # thay bằng đường dẫn ảnh của bạn
+    img = cv2.imread(output_file)
 
-    # Chuyển sang xám
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    # Resize ảnh để tăng độ chính xác
+    scale_percent = 300
+    width = int(img.shape[1] * scale_percent / 100)
+    height = int(img.shape[0] * scale_percent / 100)
+    img = cv2.resize(img, (width, height), interpolation=cv2.INTER_CUBIC)
 
-    # Làm nét và threshold nhẹ (tùy ảnh)
-    # gray = cv2.bilateralFilter(gray, 11, 17, 17)
-    # _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    # Chuyển ảnh sang trắng đen
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
-    # OCR chỉ lấy số
+    # OCR
     custom_config = r'--oem 3 --psm 6'
-    result = pytesseract.image_to_string(image, config=custom_config, lang='vie+eng')  # nếu có tiếng Việt
+    result = pytesseract.image_to_string(thresh, config=custom_config, lang='eng+vie')
     return result 
+
 
 
 
@@ -114,6 +118,7 @@ for i in range(so_trang):
 
 
 
+
 r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True)
 
 key_name = "orders:data_sku_1"
@@ -124,4 +129,6 @@ key_name = "orders:data_sku_1"
 # Ghi dữ liệu mới
 orders_json = json.dumps(array)
 r.set(key_name, orders_json)
+
+print('thành công')
 
