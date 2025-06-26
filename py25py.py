@@ -82,15 +82,16 @@ def sku(output_file):
     # OCR chỉ lấy số
     custom_config = r'--oem 3 --psm 6'
 
-    
 
-    result = pytesseract.image_to_string(image, config='--tessdata-dir /opt/tessdata', lang='eng')  # nếu có tiếng Việt
+
+    result = pytesseract.image_to_string(image,, lang='eng',config='--tessdata-dir /opt/tessdata')  # nếu có tiếng Việt
     return result 
 
 
 
 cut(input_file, output_file,116)  
 skus = sku(output_file) 
+
 # skus = re.sub(r"[^a-zA-Z0-9\- ]", "", skus)
 
 
