@@ -80,10 +80,10 @@ def sku(output_file):
     # _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
     # OCR chỉ lấy số
-    custom_config = r'--oem 3 --psm 6 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    custom_config = r'--oem 3 --psm 6 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789- '
 
 
-    result = pytesseract.image_to_string(image, config=custom_config, lang='eng+vie')  # nếu có tiếng Việt
+    result = pytesseract.image_to_string(image, config=custom_config, lang='vie')  # nếu có tiếng Việt
     return result 
 
 
