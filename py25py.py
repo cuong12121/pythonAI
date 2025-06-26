@@ -88,7 +88,7 @@ def sku(output_file):
 
 cut(input_file, output_file,116)  
 skus = sku(output_file) 
-clean_text = re.sub(r"[^a-zA-Z0-9\- ]", "", skus)
+skus = re.sub(r"[^a-zA-Z0-9\- ]", "", skus)
 
 
 pattern = r'\b[A-Za-z0-9]{4}\s*-\s*[A-Za-z]{2}\s*-\s*\d{2}\s*-\s*[A-Za-z]{3}\b'
