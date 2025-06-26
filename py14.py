@@ -101,7 +101,7 @@ array.append({
     'sku': skusss
 }) 
 
-print(skusss)
+print(skuss)
 
 # for i in range(so_trang):
 #     cut(input_file, output_file,i)  
