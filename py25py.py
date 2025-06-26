@@ -83,7 +83,7 @@ def sku(output_file):
     custom_config = r'--oem 3 --psm 6'
 
 
-    result = pytesseract.image_to_string(image, config=custom_config, lang='vie+eng')  # nếu có tiếng Việt
+    result = pytesseract.image_to_string(image, config=custom_config, lang='eng+vie')  # nếu có tiếng Việt
     return result 
 
 
