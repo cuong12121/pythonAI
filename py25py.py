@@ -35,10 +35,10 @@ def cut(input_file, output_file, page):
     # Initialize Imagick equivalent
     with Image(filename=f'{input_file}[{page}]', resolution=(300, 300)) as img:
         # Convert to grayscale
-        # img.transform_colorspace('gray')
+        img.transform_colorspace('gray')
         
-        # for _ in range(3):
-        #     img.contrast()
+        for _ in range(3):
+            img.contrast()
         
         # Crop image (x, y, width, height)
         x = 82
@@ -83,7 +83,7 @@ def sku(output_file):
     custom_config = r'--oem 3 --psm 6 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789- '
 
 
-    result = pytesseract.image_to_string(image, config=custom_config)  # nếu có tiếng Việt
+    result = pytesseract.image_to_string(image,  lang='vie',config=custom_config,)  # nếu có tiếng Việt
     return result 
 
 
