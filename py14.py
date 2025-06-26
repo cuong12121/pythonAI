@@ -85,33 +85,49 @@ def sku(output_file):
     result = pytesseract.image_to_string(image, config=custom_config, lang='vie+eng')  # nếu có tiếng Việt
     return result 
 
+cut(input_file, output_file,1)  
+skus = sku(output_file) 
+skuss = re.sub(r"[^a-zA-Z0-9\- ]", "", skus)
 
-for i in range(so_trang):
-    cut(input_file, output_file,i)  
-    skus = sku(output_file) 
-    skuss = re.sub(r"[^a-zA-Z0-9\- ]", "", skus)
+pattern = r'\b[A-Za-z0-9]{4}\s*-\s*[A-Za-z]{2}\s*-\s*\d{2}\s*-\s*[A-Za-z]{3}\b'
 
-    pattern = r'\b[A-Za-z0-9]{4}\s*-\s*[A-Za-z]{2}\s*-\s*\d{2}\s*-\s*[A-Za-z]{3}\b'
+clean_text = skuss.replace('\n', ' ').replace('\r', ' ')
 
-    clean_text = skuss.replace('\n', ' ').replace('\r', ' ')
+skusss = re.findall(pattern, clean_text)
 
-    skusss = re.findall(pattern, clean_text)
+
+array.append({
+    'sku': skusss
+}) 
+
+print(skus)
+
+# for i in range(so_trang):
+#     cut(input_file, output_file,i)  
+#     skus = sku(output_file) 
+#     skuss = re.sub(r"[^a-zA-Z0-9\- ]", "", skus)
+
+#     pattern = r'\b[A-Za-z0-9]{4}\s*-\s*[A-Za-z]{2}\s*-\s*\d{2}\s*-\s*[A-Za-z]{3}\b'
+
+#     clean_text = skuss.replace('\n', ' ').replace('\r', ' ')
+
+#     skusss = re.findall(pattern, clean_text)
     
   
-    array.append({
-        'sku': skusss
-    }) 
+#     array.append({
+#         'sku': skusss
+#     }) 
 
 
 
-r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True)
+# r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True)
 
-key_name = "orders:data_sku_1"
+# key_name = "orders:data_sku_1"
 
-# Nếu key tồn tại thì xóa
+# # Nếu key tồn tại thì xóa
 
 
-# Ghi dữ liệu mới
-orders_json = json.dumps(array)
-r.set(key_name, orders_json)
+# # Ghi dữ liệu mới
+# orders_json = json.dumps(array)
+# r.set(key_name, orders_json)
 
