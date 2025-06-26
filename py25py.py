@@ -88,7 +88,7 @@ def sku(output_file):
 
 
 
-cut(input_file, output_file,116)  
+cut(input_file, output_file,7)  
 skus = sku(output_file) 
 skus = re.sub(r"[^a-zA-Z0-9\- ]", "", skus)
 
