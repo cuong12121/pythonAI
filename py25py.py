@@ -99,7 +99,7 @@ skuss = re.findall(pattern, clean_text)
 array.append({
     'sku': skuss
 }) 
-print(array)    
+print(skus)    
 
 # r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True)
 
