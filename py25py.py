@@ -84,7 +84,7 @@ def sku(output_file):
 
 
 
-    result = pytesseract.image_to_string(image,, lang='eng',config='--tessdata-dir /opt/tessdata')  # nếu có tiếng Việt
+    result = pytesseract.image_to_string(image, lang='eng',config='--tessdata-dir /opt/tessdata')  # nếu có tiếng Việt
     return result 
 
 
