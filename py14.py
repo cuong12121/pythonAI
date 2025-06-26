@@ -89,6 +89,7 @@ def sku(output_file):
 for i in range(so_trang):
     cut(input_file, output_file,i)  
     skus = sku(output_file) 
+    skus = re.sub(r"[^a-zA-Z0-9\- ]", "", skus)
 
     pattern = r'\b[A-Za-z0-9]{4}\s*-\s*[A-Za-z]{2}\s*-\s*\d{2}\s*-\s*[A-Za-z]{3}\b'
 
