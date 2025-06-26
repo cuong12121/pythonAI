@@ -92,17 +92,24 @@ for i in range(so_trang):
     skus = sku(output_file) 
     skuss = re.sub(r"[^a-zA-Z0-9\- ]", "", skus)
 
-    pattern = r'\b[A-Za-z0-9]{4}\s*-\s*[A-Za-z]{2}\s*-\s*\d{2}\s*-\s*[A-Za-z]{3}\b'
 
     skuss = skuss.replace('SKU', '')
+
+    pattern = r'\b[A-Za-z0-9]{4}\s*-\s*[A-Za-z]{2}\s*-\s*\d{2}\s*-\s*[A-Za-z]{3}\b'
+
 
     clean_text = skuss.replace('\n', ' ').replace('\r', ' ')
 
     skusss = re.findall(pattern, clean_text)
+    if not skusss:
+        rs = skuss
+    else:
+        rs = skusss
+
     
   
     array.append({
-        'sku': skusss
+        'sku': rs
     }) 
 
 
