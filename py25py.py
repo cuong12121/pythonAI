@@ -83,13 +83,13 @@ def sku(output_file):
     _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
     # OCR
-    custom_config = r'--oem 3 --psm 6'
-    result = pytesseract.image_to_string(thresh, config=custom_config, lang='eng+vie')
+    custom_config = r'--psm 11'
+    result = pytesseract.image_to_string(thresh, config=custom_config, lang='eng')
     return result 
 
 
 
-cut(input_file, output_file,116)  
+cut(input_file, output_file,7)  
 skus = sku(output_file) 
 skus = re.sub(r"[^a-zA-Z0-9\- ]", "", skus)
 
