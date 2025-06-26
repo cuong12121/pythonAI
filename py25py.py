@@ -84,7 +84,7 @@ def sku(output_file):
 
     # OCR
     custom_config = r'--oem 3 --psm 6'
-    result = pytesseract.image_to_string(thresh, config=custom_config, lang='eng')
+    result = pytesseract.image_to_string(thresh, config=custom_config, lang='eng+vie')
     return result 
 
 
