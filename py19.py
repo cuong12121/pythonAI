@@ -82,7 +82,7 @@ def cut2(filepath):
     
       # Đường dẫn đến file PDF
     pdf_path = filepath
-    for i in range(2)
+    for i in range(2):
         # Bước 1: Đọc chỉ trang 116 (số bắt đầu từ 1)
         pages = convert_from_path(pdf_path, dpi=300, first_page=i, last_page=i)
 
