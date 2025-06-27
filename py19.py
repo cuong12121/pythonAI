@@ -90,7 +90,7 @@ def cut2(filepath):
 
         # Bước 2: Dùng Tesseract OCR để đọc văn bản
         custom_config = r'--oem 3 --psm 6'  # Có thể điều chỉnh nếu cần
-        text = pytesseract.image_to_string(img, config=custom_config, lang="eng+vie")
+        text = pytesseract.image_to_string(cropped, config=custom_config, lang="eng+vie")
 
         # Bước 3: Lưu vào mảng với key là số trang (bắt đầu từ 1)
         array[idx] = text
