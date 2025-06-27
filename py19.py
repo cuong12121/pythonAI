@@ -80,7 +80,7 @@ def cut2(filepath):
     array = {}
 
     # Bước 1: Đọc chỉ trang 116 (số bắt đầu từ 1)
-    pages = convert_from_path(pdf_path, dpi=300, first_page=1, last_page=218)
+    pages = convert_from_path(pdf_path, dpi=300, first_page=1, last_page=1)
 
     for idx, page in enumerate(pages):
         # Bước 1: Chuyển PIL Image -> NumPy -> OpenCV (BGR)
@@ -97,7 +97,7 @@ def cut2(filepath):
         # # Bước 3: Lưu vào mảng với key là số trang (bắt đầu từ 1)
         # array[idx] = text
 
-        time.sleep(5)
+        
 
         print(f'cắt xong trang{idx}')
 
