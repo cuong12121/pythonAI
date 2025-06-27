@@ -75,27 +75,26 @@ def cut2(filepath):
 
     # Đường dẫn đến file PDF
     pdf_path = filepath
+    array = {}
 
     # Bước 1: Đọc chỉ trang 116 (số bắt đầu từ 1)
-    pages = convert_from_path(pdf_path, dpi=300, first_page=217, last_page=217)
+    pages = convert_from_path(pdf_path, dpi=300, first_page=1, last_page=217)
 
-    # Bước 2: Lấy trang 116 ra (chỉ có 1 phần tử)
-    page = pages[0]  # dạng PIL.Image
+    for idx, page in enumerate(pages):
+        # Bước 1: Chuyển PIL Image -> NumPy -> OpenCV (BGR)
+        open_cv_image = np.array(page.convert('RGB'))
+        img = cv2.cvtColor(open_cv_image, cv2.COLOR_RGB2BGR)
 
-    # Bước 3: Chuyển PIL → NumPy → OpenCV (BGR)
-    open_cv_image = np.array(page.convert('RGB'))
-    img = cv2.cvtColor(open_cv_image, cv2.COLOR_RGB2BGR)
+        cropped = img[1900:2900, 82:170]  # vì 82+88=170
+        cv2.imwrite("cropped_page116.png", cropped)
 
-    # Bước 4: Cắt vùng theo tọa độ [y1:y2, x1:x2]
-    # Ví dụ: cắt vùng từ dòng 100 đến 400 và cột 200 đến 600
-    cropped = img[1900:2900, 82:170]  # vì 82+88=170
+        # Bước 2: Dùng Tesseract OCR để đọc văn bản
+        custom_config = r'--oem 3 --psm 6'  # Có thể điều chỉnh nếu cần
+        text = pytesseract.image_to_string(img, config=custom_config, lang="eng+vie")
 
-
-    cv2.imwrite("cropped_page116.png", cropped)
-
-    text = pytesseract.image_to_string(cropped, config='--oem 3 --psm 6', lang="eng+vie")
-    print(text)
-
+        # Bước 3: Lưu vào mảng với key là số trang (bắt đầu từ 1)
+        array[idx] = text
+    return(array)   
 
 
 def sku(output_file):
@@ -117,7 +116,7 @@ def sku(output_file):
 
     result = pytesseract.image_to_string(img, config=custom_config)
     return result 
-cut2(input_file)
+array = cut2(input_file)
 # cut(input_file, output_file,116)  
 # skus = sku(output_file) 
 # skuss = re.sub(r"[^a-zA-Z0-9\- ]", "", skus)
