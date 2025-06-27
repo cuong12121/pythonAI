@@ -96,8 +96,12 @@ def cut2(filepath):
         # # Bước 3: Lưu vào mảng với key là số trang (bắt đầu từ 1)
         # array[idx] = text
 
-        del page, pages, cropped
-        gc.collect()
+        time.sleep(5)
+
+        print(f'cắt xong trang{idx}')
+
+        # del page, pages, cropped
+        # gc.collect()
     return('cắt xong')   
 
 
