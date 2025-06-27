@@ -9,7 +9,7 @@ import numpy as np
 import gc
 from pdf2image import convert_from_path
 
-# import redis
+import redis
 import json
 import time
 from PIL import Image
@@ -201,16 +201,16 @@ array = cut2(input_file)
 
 
 
-# r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True)
+r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True)
 
-# key_name = "orders:data_sku_1"
+key_name = "orders:data_sku_1"
 
-# # Nếu key tồn tại thì xóa
+# Nếu key tồn tại thì xóa
 
 
 # Ghi dữ liệu mới
 orders_json = json.dumps(array)
-# r.set(key_name, orders_json)
+r.set(key_name, orders_json)
 
 print(orders_json)
 
