@@ -5,6 +5,7 @@ import pytesseract
 import sys
 import io
 import numpy as np
+import gc
 from pdf2image import convert_from_path
 
 # import redis
@@ -78,7 +79,7 @@ def cut2(filepath):
     array = {}
 
     # Bước 1: Đọc chỉ trang 116 (số bắt đầu từ 1)
-    pages = convert_from_path(pdf_path, dpi=300, first_page=1, last_page=1)
+    pages = convert_from_path(pdf_path, dpi=300, first_page=1, last_page=218)
 
     for idx, page in enumerate(pages):
         # Bước 1: Chuyển PIL Image -> NumPy -> OpenCV (BGR)
@@ -86,7 +87,7 @@ def cut2(filepath):
         img = cv2.cvtColor(open_cv_image, cv2.COLOR_RGB2BGR)
 
         cropped = img[1900:2900, 82:170]  # vì 82+88=170
-        cv2.imwrite(f"cropped_page_{idx+1}.png", cropped)
+        cv2.imwrite(f"image_cut/cropcropped_page_{idx+1}.png", cropped)
 
         # # Bước 2: Dùng Tesseract OCR để đọc văn bản
         # custom_config = r'--oem 3 --psm 6'  # Có thể điều chỉnh nếu cần
@@ -94,6 +95,9 @@ def cut2(filepath):
 
         # # Bước 3: Lưu vào mảng với key là số trang (bắt đầu từ 1)
         # array[idx] = text
+
+        del page, pages, cropped
+        gc.collect()
     return('cắt xong')   
 
 
