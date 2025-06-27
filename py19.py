@@ -79,34 +79,51 @@ def cut2(filepath):
     pdf_path = filepath
     array = {}
 
-    # Bước 1: Đọc chỉ trang 116 (số bắt đầu từ 1)
-    pages = convert_from_path(pdf_path, dpi=300, first_page=1, last_page=218)
+    for i in range(218):
+          # Đường dẫn đến file PDF
+        pdf_path = filepath
 
-    for idx, page in enumerate(pages):
-        # Bước 1: Chuyển PIL Image -> NumPy -> OpenCV (BGR)
+        # Bước 1: Đọc chỉ trang 116 (số bắt đầu từ 1)
+        pages = convert_from_path(f,pdf_path, dpi=300, first_page={i}, last_page={i})
+
+        # Bước 2: Lấy trang 116 ra (chỉ có 1 phần tử)
+        page = pages[0]  # dạng PIL.Image
+
+        # Bước 3: Chuyển PIL → NumPy → OpenCV (BGR)
         open_cv_image = np.array(page.convert('RGB'))
         img = cv2.cvtColor(open_cv_image, cv2.COLOR_RGB2BGR)
 
+        # Bước 4: Cắt vùng theo tọa độ [y1:y2, x1:x2]
+        # Ví dụ: cắt vùng từ dòng 100 đến 400 và cột 200 đến 600
         cropped = img[1900:2900, 82:170]  # vì 82+88=170
-        cv2.imwrite(f"image_cut/cropcropped_page_{idx+1}.png", cropped)
 
-        # # Bước 2: Dùng Tesseract OCR để đọc văn bản
-        # custom_config = r'--oem 3 --psm 6'  # Có thể điều chỉnh nếu cần
-        # text = pytesseract.image_to_string(cropped, config=custom_config, lang="eng+vie")
 
-        # # Bước 3: Lưu vào mảng với key là số trang (bắt đầu từ 1)
-        # array[idx] = text
+        cv2.imwrite("cropped_page116.png", cropped)
 
-        
+        text = pytesseract.image_to_string(cropped, config='--oem 3 --psm 6', lang="eng+vie")
 
-        print(f'cắt xong trang{idx}')
+        skus = sku(text) 
 
-        del img, cropped, page, pages
-        gc.collect()
-        time.sleep(0.5)
-        # del page, pages, cropped
-        # gc.collect()
-    return('cắt xong')   
+        skuss = re.sub(r"[^a-zA-Z0-9\- ]", "", skus)
+
+        skuss = skuss.replace('SKU', '')
+
+        pattern = r'\b[A-Za-z0-9]{4}\s*-\s*[A-Za-z]{2}\s*-\s*\d{2}\b'
+
+        clean_text = skuss.replace('\n', ' ').replace('\r', ' ')
+
+        skusss = re.findall(pattern, clean_text)
+
+        if not skusss:
+            rs = skuss
+        else:
+            rs = skusss
+
+        array.append({
+            'sku': rs
+        }) 
+            
+    return(array)   
 
 
 def sku(output_file):
@@ -130,9 +147,6 @@ def sku(output_file):
     return result 
 array = cut2(input_file)
 
-print(array)
-
-exit()
 # cut(input_file, output_file,116)  
 # skus = sku(output_file) 
 # skuss = re.sub(r"[^a-zA-Z0-9\- ]", "", skus)
