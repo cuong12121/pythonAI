@@ -101,6 +101,9 @@ def cut2(filepath):
 
         print(f'cắt xong trang{idx}')
 
+        del img, cropped, page, pages
+        gc.collect()
+        time.sleep(0.5)
         # del page, pages, cropped
         # gc.collect()
     return('cắt xong')   
