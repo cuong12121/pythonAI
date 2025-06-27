@@ -86,7 +86,7 @@ def cut2(filepath):
         img = cv2.cvtColor(open_cv_image, cv2.COLOR_RGB2BGR)
 
         cropped = img[1900:2900, 82:170]  # vì 82+88=170
-        cv2.imwrite('/image_cut/cropped_page_{idx+1}.png', cropped)
+        cv2.imwrite('cropped_page_{idx+1}.png', cropped)
 
         # # Bước 2: Dùng Tesseract OCR để đọc văn bản
         # custom_config = r'--oem 3 --psm 6'  # Có thể điều chỉnh nếu cần
