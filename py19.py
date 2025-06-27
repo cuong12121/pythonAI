@@ -4,6 +4,7 @@ import cv2
 import pytesseract
 import sys
 import io
+import time
 import numpy as np
 import gc
 from pdf2image import convert_from_path
