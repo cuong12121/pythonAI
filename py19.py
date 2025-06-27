@@ -79,7 +79,7 @@ def cut2(filepath):
     pdf_path = filepath
     array = {}
 
-    for i in range(217):
+    for i in range(2):
           # Đường dẫn đến file PDF
         pdf_path = filepath
 
