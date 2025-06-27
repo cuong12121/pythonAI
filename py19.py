@@ -117,11 +117,9 @@ def cut2(filepath):
     else:
         rs = skusss
 
-    array.append({
-        'sku': rs
-    }) 
+   
             
-    return(array)   
+    return(rs)   
 
 
 def sku(output_file):
