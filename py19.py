@@ -82,9 +82,10 @@ def cut2(filepath):
     
       # Đường dẫn đến file PDF
     pdf_path = filepath
-    for i in range(2):
+    for i in range(10):
+        indexpage = i+1
         # Bước 1: Đọc chỉ trang 116 (số bắt đầu từ 1)
-        pages = convert_from_path(pdf_path, dpi=300, first_page=i, last_page=i)
+        pages = convert_from_path(pdf_path, dpi=300, first_page=indexpage, last_page=indexpage)
 
         # Bước 2: Lấy trang 116 ra (chỉ có 1 phần tử)
         page = pages[0]  # dạng PIL.Image
