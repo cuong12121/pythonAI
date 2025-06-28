@@ -166,7 +166,7 @@ def cut3(filepath):
     
       # Đường dẫn đến file PDF
     pdf_path = filepath
-    i=1
+    i=0
     indexpage = i+1
     # Bước 1: Đọc chỉ trang 116 (số bắt đầu từ 1)
     pages = convert_from_path(pdf_path, dpi=300, first_page=indexpage, last_page=indexpage)
@@ -198,6 +198,8 @@ def cut3(filepath):
     clean_text = skuss.replace('\n', ' ').replace('\r', ' ')
 
     corrected_list = correct_sku(clean_text)
+    if(corrected_list==[]):
+        corrected_list=[clean_text]
     corrected_text = ' '.join(corrected_list)
 
     skusss = re.findall(pattern, corrected_text)

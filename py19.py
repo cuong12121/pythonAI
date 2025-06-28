@@ -112,6 +112,9 @@ def cut2(filepath):
         clean_text = skuss.replace('\n', ' ').replace('\r', ' ')
 
         corrected_list = correct_sku(clean_text)
+
+        if(corrected_list==[]):
+            corrected_list=[clean_text]
         corrected_text = ' '.join(corrected_list)
 
         skusss = re.findall(pattern, corrected_text)
