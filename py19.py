@@ -133,7 +133,7 @@ def cut2(filepath):
 
 
 def correct_sku(raw_text):
-    pattern = r'([A-Z0-9]{4})-[A-Z]{2}-[0-9]{2}-[A-Z]{3}-[0-9]{2}-(SL[0-9]|[0-9]{2,3})'
+    pattern = r'([A-Z0-9]{4})-([A-Z]{2})-([0-9]{2})-([A-Z]{3})-([0-9]{2})-(SL[0-9]|[0-9]{2,3})'
 
     matches = re.findall(pattern, raw_text)
 
