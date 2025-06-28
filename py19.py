@@ -120,7 +120,7 @@ def cut2(filepath):
         skusss = re.findall(pattern, corrected_text)
 
         if not skusss:
-            rs = skuss
+            rs = clean_text
         else:
             rs = skusss
 
