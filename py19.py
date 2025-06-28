@@ -133,13 +133,13 @@ def cut2(filepath):
 
 
 def correct_sku(raw_text):
-    pattern = r'([0-9]{3}[A-Z])-([A-Z]{2})-(\d{2})'
+    pattern = r'([A-Z0-9]{4})-[A-Z]{2}-[0-9]{2}-[A-Z]{3}-[0-9]{2}-(SL[0-9]|[0-9]{2,3})'
 
     matches = re.findall(pattern, raw_text)
 
     corrected = []
 
-    for part1, part2, part3 in matches:
+    for part1, part2, part3, part4, part5, part6 in matches:
         # Sửa các lỗi OCR
         digits = part1[:3].replace('I', '1').replace('O', '0')
         letter = part1[3]
@@ -148,12 +148,13 @@ def correct_sku(raw_text):
         part1_fixed = digits + letter
 
         part2 = part2.replace('1', 'I').replace('0', 'O')
-       
+        part4 = part4.replace('1', 'I').replace('0', 'O')
 
         part3 = part3.replace('I', '1').replace('O', '0')
-       
+        part5 = part5.replace('I', '1').replace('O', '0')
+        part6 = part6.replace('I', '1').replace('O', '0')
 
-        sku = f"{part1_fixed}-{part2}-{part3}"
+        sku = f"{part1_fixed}-{part2}-{part3}-{part4}-{part5}-{part6}"
         corrected.append(sku)
 
     return corrected
