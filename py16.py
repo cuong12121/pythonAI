@@ -180,7 +180,7 @@ array = []
 for i in range(so_trang):
     # Đọc ảnh
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    input_file = os.path.join(current_dir, 't34.pdf')
+    input_file = os.path.join(current_dir, 't38.pdf')
     output_file = os.path.join(current_dir, 'cropped1169.png')
 
     input_file3 = os.path.join(current_dir, 'file3.png')
