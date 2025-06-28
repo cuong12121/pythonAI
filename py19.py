@@ -110,13 +110,11 @@ def cut2(filepath):
         pattern = r'\b[A-Za-z0-9]{4}\s*-\s*[A-Za-z]{2}\s*-\s*\d{2}\b'
 
         clean_text = skuss.replace('\n', ' ').replace('\r', ' ')
-        clean_text = clean_text.replace('6900', '690O')
-        clean_text = clean_text.replace('1V', 'IV')
-        clean_text = clean_text.replace('3501', '350I')
 
+        corrected_list = correct_sku(clean_text)
+        corrected_text = ' '.join(corrected_list)
 
-
-        skusss = re.findall(pattern, clean_text)
+        skusss = re.findall(pattern, corrected_text)
 
         if not skusss:
             rs = skuss
@@ -130,6 +128,42 @@ def cut2(filepath):
             
     return(array)   
 
+
+def correct_sku(raw_text):
+    """
+    Tìm và sửa mã SKU có dạng NNNL-LL-NN, xử lý lỗi OCR giữa 0/O và 1/I.
+    """
+    # Regex tìm dạng mã SKU: 4 ký tự đầu, 2 chữ, 2 số
+    pattern = r'\b([A-Z0-9]{4})-([A-Z0-9]{2})-(\d{2})\b'
+    matches = re.findall(pattern, raw_text)
+
+    corrected = []
+
+    for part1, part2, part3 in matches:
+        # Phần 1: 3 số đầu + 1 chữ cái
+        digits = part1[:3]
+        letter = part1[3]
+
+        # Sửa phần số đầu: nếu chứa chữ → đổi ngược về số
+        digits = digits.replace('I', '1').replace('O', '0')
+
+        # Sửa ký tự thứ 4: nếu là số → đổi thành chữ
+        if letter == '1':
+            letter = 'I'
+        elif letter == '0':
+            letter = 'O'
+
+        # Phần giữa (chữ): sửa số thành chữ
+        part2 = part2.replace('1', 'I').replace('0', 'O')
+
+        # Phần cuối (số): sửa chữ thành số
+        part3 = part3.replace('I', '1').replace('O', '0')
+
+        corrected_sku = f"{digits}{letter}-{part2}-{part3}"
+        corrected.append(corrected_sku)
+
+    return corrected
+
 def cut3(filepath):
     # Đường dẫn đến file PDF
     pdf_path = filepath
@@ -138,7 +172,7 @@ def cut3(filepath):
     
       # Đường dẫn đến file PDF
     pdf_path = filepath
-    i=48
+    i=35
     indexpage = i+1
     # Bước 1: Đọc chỉ trang 116 (số bắt đầu từ 1)
     pages = convert_from_path(pdf_path, dpi=300, first_page=indexpage, last_page=indexpage)
@@ -157,7 +191,7 @@ def cut3(filepath):
 
     cv2.imwrite("cropped_page116.png", cropped)
 
-    text = pytesseract.image_to_string(cropped, config='--oem 3 --psm 6', lang="eng")
+    text = pytesseract.image_to_string(cropped, config=r'-l eng --oem 3 --psm 6')
 
     skuss = re.sub(r"[^a-zA-Z0-9\- ]", "", text)
 
@@ -168,19 +202,18 @@ def cut3(filepath):
     pattern = r'\b[A-Za-z0-9]{4}\s*-\s*[A-Za-z]{2}\s*-\s*\d{2}\b'
 
     clean_text = skuss.replace('\n', ' ').replace('\r', ' ')
-    clean_text = clean_text.replace('6900', '690O')
-    clean_text = clean_text.replace('1V', 'IV')
 
-    skusss = re.findall(pattern, clean_text)
+    corrected_list = correct_sku(clean_text)
+    corrected_text = ' '.join(corrected_list)
+
+    skusss = re.findall(pattern, corrected_text)
 
     if not skusss:
-        skuss = skuss.replace('1V', 'IV')
+        # skuss = skuss.replace('1V', 'IV')
         
         rs = skuss
     else: 
 
-       
-        
         rs = skusss
     return rs
 
@@ -202,8 +235,12 @@ def sku(output_file):
     custom_config = r'--oem 3 --psm 6'
 
     result = pytesseract.image_to_string(img, config=custom_config)
-    return result 
-array = cut2(input_file)
+    return result
+
+# cr = correct_sku('6900-A1-01-ABB-00-01')   
+
+array  = cut2(input_file)
+
 
 # cut(input_file, output_file,116)  
 # skus = sku(output_file) 
@@ -270,5 +307,4 @@ key_name = "orders:data_sku_1"
 orders_json = json.dumps(array)
 r.set(key_name, orders_json)
 
-# print(orders_json)
 
