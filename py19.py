@@ -139,7 +139,7 @@ def correct_sku(raw_text):
 
     corrected = []
 
-    for part1, part2, part3, part4, part5, part6 in matches:
+    for part1, part2, part3 in matches:
         # Sửa các lỗi OCR
         digits = part1[:3].replace('I', '1').replace('O', '0')
         letter = part1[3]
