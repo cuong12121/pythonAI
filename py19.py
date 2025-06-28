@@ -112,6 +112,8 @@ def cut2(filepath):
         clean_text = skuss.replace('\n', ' ').replace('\r', ' ')
         clean_text = clean_text.replace('6900', '690O')
         clean_text = clean_text.replace('1V', 'IV')
+        clean_text = clean_text.replace('3501', '350I')
+
 
 
         skusss = re.findall(pattern, clean_text)
