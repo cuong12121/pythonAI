@@ -9,7 +9,7 @@ import numpy as np
 import gc
 from pdf2image import convert_from_path
 
-import redis
+# import redis
 import json
 import time
 from PIL import Image
@@ -130,6 +130,8 @@ def cut2(filepath):
 
 
 def correct_sku(raw_text):
+   
+
     pattern = r'([0-9OIl]{3}[A-ZOlI])-([A-Z]{2})-(\d{2})-([A-Z]{3})-(\d{2})-(\d{3})'
 
     matches = re.findall(pattern, raw_text)
@@ -155,7 +157,6 @@ def correct_sku(raw_text):
         corrected.append(sku)
 
     return corrected
-    
 
 def cut3(filepath):
     # Đường dẫn đến file PDF
@@ -165,7 +166,7 @@ def cut3(filepath):
     
       # Đường dẫn đến file PDF
     pdf_path = filepath
-    i=35
+    i=1
     indexpage = i+1
     # Bước 1: Đọc chỉ trang 116 (số bắt đầu từ 1)
     pages = convert_from_path(pdf_path, dpi=300, first_page=indexpage, last_page=indexpage)
@@ -232,7 +233,10 @@ def sku(output_file):
 
 # cr = correct_sku('6900-A1-01-ABB-00-01')   
 
-array  = cut2(input_file)
+array  = cut3(input_file)
+
+print(array)
+exit()
 
 
 # cut(input_file, output_file,116)  
