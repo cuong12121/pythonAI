@@ -148,13 +148,12 @@ def correct_sku(raw_text):
         part1_fixed = digits + letter
 
         part2 = part2.replace('1', 'I').replace('0', 'O')
-        part4 = part4.replace('1', 'I').replace('0', 'O')
+       
 
         part3 = part3.replace('I', '1').replace('O', '0')
-        part5 = part5.replace('I', '1').replace('O', '0')
-        part6 = part6.replace('I', '1').replace('O', '0')
+       
 
-        sku = f"{part1_fixed}-{part2}-{part3}-{part4}-{part5}-{part6}"
+        sku = f"{part1_fixed}-{part2}-{part3}"
         corrected.append(sku)
 
     return corrected
