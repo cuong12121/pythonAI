@@ -113,8 +113,8 @@ def cut2(filepath):
 
         corrected_list = correct_sku(clean_text)
 
-        if(corrected_list==[]):
-            corrected_list=[clean_text]
+        # if(corrected_list==[]):
+        #     corrected_list=[clean_text]
         corrected_text = ' '.join(corrected_list)
 
         skusss = re.findall(pattern, corrected_text)
@@ -133,7 +133,7 @@ def cut2(filepath):
 
 
 def correct_sku(raw_text):
-    pattern = r'([0-9OIl]{3}[A-ZOlI])-([A-Z]{2})-(\d{2})-([A-Z]{3})-(\d{2})-(\d{3})'
+    pattern = r'([0-9]{3}[A-Z])-([A-Z]{2})-(\d{2})-([A-Z]{3})-(\d{2})-(\d{3})'
 
     matches = re.findall(pattern, raw_text)
 
