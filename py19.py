@@ -270,5 +270,5 @@ key_name = "orders:data_sku_1"
 orders_json = json.dumps(array)
 r.set(key_name, orders_json)
 
-print(orders_json)
+# print(orders_json)
 
