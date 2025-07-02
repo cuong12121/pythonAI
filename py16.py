@@ -166,7 +166,7 @@ url = "https://drive.dienmayai.com/file_in.php"
 response = requests.get(url)
 
 data = response.json()  # Tự động decode JSON thành dict
-
+number =0
 for item in data:
 
     save_path = "t38.pdf"
@@ -247,7 +247,7 @@ for item in data:
                
             r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True)
 
-            number = item+1
+            number += 1
 
             key_name = "orders:data_quantity_"+number
 
