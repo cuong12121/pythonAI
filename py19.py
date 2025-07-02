@@ -261,10 +261,10 @@ for item in data:
 
             r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True)
 
-        
+
             number += 1
 
-            key_name = "orders:data_sku_"+number
+            key_name = 'orders:data_sku_'+number
 
             # Nếu key tồn tại thì xóa
 
