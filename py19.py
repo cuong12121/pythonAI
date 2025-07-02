@@ -232,78 +232,44 @@ def sku(output_file):
 
 # Define file paths (equivalent to __DIR__ in PHP)
 current_dir = os.path.dirname(os.path.abspath(__file__))
-input_file = os.path.join(current_dir, 't38.pdf')
-output_file = os.path.join(current_dir, 'cropped1169.png')
 
-array =[]
-so_trang = count_pdf_pages(input_file)
+url = "https://drive.dienmayai.com/file_in.php"
 
-array  = cut2(input_file)
+response = requests.get(url)
 
+data = response.json()  # Tự động decode JSON thành dict
 
-# cut(input_file, output_file,116)  
-# skus = sku(output_file) 
-# skuss = re.sub(r"[^a-zA-Z0-9\- ]", "", skus)
+for item in data:
+    save_path = "t38.pdf"
 
+    file_pdf = 'https://dienmayai.com/'+item['file_pdf']
 
-# skuss = skuss.replace('SKU', '')
+    # Gửi request để tải file
+    responses = requests.get(file_pdf)
 
-# pattern = r'\b[A-Za-z0-9]{4}\s*-\s*[A-Za-z]{2}\s*-\s*\d{2}\b'
+    if responses.status_code == 200:
 
+        with open(save_path, 'wb') as f:
+            f.write(responses.content)
+            input_file = os.path.join(current_dir, 't38.pdf')
+            output_file = os.path.join(current_dir, 'cropped1169.png')
 
-# clean_text = skuss.replace('\n', ' ').replace('\r', ' ')
+            array =[]
+            so_trang = count_pdf_pages(input_file)
 
-# skusss = re.findall(pattern, clean_text)
-# if not skusss:
-#     rs = skuss
-# else:
-#     rs = skusss
+            array  = cut2(input_file)
 
+            r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True)
 
+            number = item+1
 
-# array.append({
-#     'sku': rs
-# }) 
+            key_name = "orders:data_sku_"+number
 
-
-
-# for i in range(so_trang):
-#     cut(input_file, output_file,i)  
-#     skus = sku(output_file) 
-#     skuss = re.sub(r"[^a-zA-Z0-9\- ]", "", skus)
+            # Nếu key tồn tại thì xóa
 
 
-#     skuss = skuss.replace('SKU', '')
-
-#     pattern = r'\b[A-Za-z0-9]{4}\s*-\s*[A-Za-z]{2}\s*-\s*\d{2}\b'
-
-
-#     clean_text = skuss.replace('\n', ' ').replace('\r', ' ')
-
-#     skusss = re.findall(pattern, clean_text)
-#     if not skusss:
-#         rs = skuss
-#     else:
-#         rs = skusss
-
-
-
-#     array.append({
-#         'sku': rs
-#     }) 
-
-
-
-
-r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True)
-
-key_name = "orders:data_sku_1"
-
-# Nếu key tồn tại thì xóa
-
-
-# Ghi dữ liệu mới
-orders_json = json.dumps(array)
-r.set(key_name, orders_json)
+            # Ghi dữ liệu mới
+            orders_json = json.dumps(array)
+            r.set(key_name, orders_json)
 
 
