@@ -264,7 +264,7 @@ for item in data:
 
             number += 1
 
-            key_name = 'orders:data_sku_'+number
+            key_name = 'orders:data_sku_'+str(number)
 
             # Nếu key tồn tại thì xóa
 

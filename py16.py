@@ -249,7 +249,7 @@ for item in data:
 
             number += 1
 
-            key_name = 'orders:data_quantity_'+number
+            key_name = 'orders:data_quantity_'+str(number)
 
         
             # Ghi dữ liệu mới
