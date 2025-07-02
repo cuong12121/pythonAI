@@ -14,21 +14,12 @@ from wand.color import Color
 sys.stdout.reconfigure(encoding='utf-8')
 
 
-
-# Define file paths (equivalent to __DIR__ in PHP)
-current_dir = os.path.dirname(os.path.abspath(__file__))
-input_file = os.path.join(current_dir, 't37.pdf')
-output_file = os.path.join(current_dir, 'cropped1169.png')
-
-array =[]
-
-
 def count_pdf_pages(input_file):
     with Image(filename=input_file) as img:
         return len(img.sequence)
 
 
-so_trang = count_pdf_pages(input_file)
+
 # print(f"Số trang PDF: {so_trang}")
 
 # exit()
@@ -89,7 +80,13 @@ def sku(output_file):
     return result 
 
 
+# Define file paths (equivalent to __DIR__ in PHP)
+current_dir = os.path.dirname(os.path.abspath(__file__))
+input_file = os.path.join(current_dir, 't37.pdf')
+output_file = os.path.join(current_dir, 'cropped1169.png')
 
+array =[]
+so_trang = count_pdf_pages(input_file)
 
 for i in range(so_trang):
     cut(input_file, output_file,i)  
