@@ -188,6 +188,8 @@ def cut3(filepath):
 
     text = pytesseract.image_to_string(cropped, config=r'-l eng --oem 3 --psm 6')
 
+    text = text.replace('“', '-')
+
     skuss = re.sub(r"[^a-zA-Z0-9\- ]", "", text)
 
     skuss = skuss.replace('SKU', '')
