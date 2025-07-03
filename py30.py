@@ -208,7 +208,7 @@ def cut3(filepath):
     if not skusss:
         # skuss = skuss.replace('1V', 'IV')
         
-        rs = skuss
+        rs = text
     else: 
 
         rs = skusss
