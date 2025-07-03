@@ -98,7 +98,8 @@ def cut2(filepath):
 
         text = pytesseract.image_to_string(cropped, config='--oem 3 --psm 6', lang="eng")
         
-        text = text.replace('“', '-')
+        text = re.sub(r'[^A-Za-z0-9]+', '-', text)
+
 
         skuss = re.sub(r"[^a-zA-Z0-9\- ]", "", text)
 
