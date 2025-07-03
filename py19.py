@@ -97,6 +97,8 @@ def cut2(filepath):
         cv2.imwrite("cropped_page116.png", cropped)
 
         text = pytesseract.image_to_string(cropped, config='--oem 3 --psm 6', lang="eng")
+        
+        text = text.replace('“', '-')
 
         skuss = re.sub(r"[^a-zA-Z0-9\- ]", "", text)
 
