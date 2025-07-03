@@ -8,7 +8,7 @@ import time
 import numpy as np
 import gc
 from pdf2image import convert_from_path
-
+import requests
 import redis
 import json
 import time
