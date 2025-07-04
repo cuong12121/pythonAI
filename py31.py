@@ -29,7 +29,7 @@ def correct_sku(raw_text):
 
     return corrected
 
-code ='150B-MT-00'
+code ='150B-MT-00-ABC-00-001'
 
 codes = correct_sku(code)
 
