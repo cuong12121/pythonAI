@@ -3,7 +3,7 @@ import re
 def correct_sku(raw_text):
    
 
-    pattern = r'([0-9OIl]{3}[A-ZOlI])-([A-Z]{2})-(\d{2})-([A-Z]{3})-(\d{2})-(\d{3})'
+    pattern = r'([0-9A-ZOIl]{3}[A-ZOl1I])-([A-Z]{2})-(\d{2})-([A-Z]{3})-(\d{2})-(\d{3})'
 
     matches = re.findall(pattern, raw_text)
 
@@ -12,6 +12,7 @@ def correct_sku(raw_text):
     for part1, part2, part3, part4, part5, part6 in matches:
         # Sửa các lỗi OCR
         digits = part1[:3].replace('I', '1').replace('O', '0')
+        # digits = part1[:1].replace('1', 'I').replace('0', 'O')
         letter = part1[3]
         if letter == '1': letter = 'I'
         elif letter == '0': letter = 'O'
