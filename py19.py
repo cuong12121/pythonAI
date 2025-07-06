@@ -96,7 +96,7 @@ def cut2(filepath):
 
         cv2.imwrite("cropped_page116.png", cropped)
 
-        preprocess = "blur" 
+        preprocess = "thresh" 
 
         image_path = 'cropped_page116.png'
 
@@ -115,7 +115,7 @@ def cut2(filepath):
         custom_config = r'--oem 3 --psm 6'
         from PIL import Image
         # Load ảnh và apply nhận dạng bằng Tesseract OCR
-        text = pytesseract.image_to_string(Image.open(temp_filename),config=custom_config, lang='eng-best+eng')  # có nhiều ngông ngữ thì trong lang các ngôn ngữ cách nhau bằng dấu  +
+        text = pytesseract.image_to_string(Image.open(temp_filename),config=custom_config, lang='eng-best')  # có nhiều ngông ngữ thì trong lang các ngôn ngữ cách nhau bằng dấu  +
         """ Cần chú ý các chế độ nhận diện được điều chỉnh bằng config """
         # regex toàn bộ ký tự đặc biệt thành '-'
         skuss = re.sub(r'[^A-Za-z0-9]+', '-', text)
