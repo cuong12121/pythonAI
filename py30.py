@@ -168,7 +168,7 @@ def cut3(filepath):
     pdf_path = filepath
     i=0
     # indexpage = i+1
-    indexpage =33
+    indexpage =34
     # Bước 1: Đọc chỉ trang 116 (số bắt đầu từ 1)
     pages = convert_from_path(pdf_path, dpi=300, first_page=indexpage, last_page=indexpage)
 
@@ -185,7 +185,7 @@ def cut3(filepath):
 
 
     cv2.imwrite("cropped_page116.png", cropped)
-    preprocess = "thresh" 
+    preprocess = "blur" 
 
     image_path = 'cropped_page116.png'
 
@@ -199,19 +199,21 @@ def cut3(filepath):
 
     # Lưu ảnh trong ổ cứng như file tạm để có thể apply OCR
     temp_filename = "temp.png"
+
+
     cv2.imwrite(temp_filename, gray)
 
     custom_config = r'--oem 3 --psm 6'
     from PIL import Image
     # Load ảnh và apply nhận dạng bằng Tesseract OCR
-    text = pytesseract.image_to_string(Image.open(temp_filename),config=custom_config, lang='eng-best')  # có nhiều ngông ngữ thì trong lang các ngôn ngữ cách nhau bằng dấu  +
+    text = pytesseract.image_to_string(Image.open(temp_filename),config=custom_config, lang='eng-best+eng')  # có nhiều ngông ngữ thì trong lang các ngôn ngữ cách nhau bằng dấu  +
     """ Cần chú ý các chế độ nhận diện được điều chỉnh bằng config """
 
     skuss = re.sub(r'[^A-Za-z0-9]+', '-', text)
 
     skuss1 = skuss.replace('SKU', '')
 
-    skuss1 = skuss.replace('SKU-', '')      # Xóa 'SKU nếu có dấu gạch'
+    skuss1 = skuss.replace('SKU-', '')      # Xóa 'SKU nếu có dấu gach'
 
 
     pattern = r'\b[A-Za-z0-9]{4,5}\s*-\s*[A-Za-z]{2}\s*-\s*\d{2}\b'
@@ -223,7 +225,7 @@ def cut3(filepath):
    
 
     rs = skusss
-    return rs
+    return skuss
 
 def sku(output_file):
      # Load ảnh
