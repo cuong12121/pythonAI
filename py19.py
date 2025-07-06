@@ -96,10 +96,27 @@ def cut2(filepath):
 
         cv2.imwrite("cropped_page116.png", cropped)
 
-        text = pytesseract.image_to_string(cropped, config='--oem 3 --psm 6', lang="eng")
-        
-        text = re.sub(r'[^A-Za-z0-9]+', '-', text)
+        preprocess = "thresh" 
 
+        image_path = 'cropped_page116.png'
+
+        image = cv2.imread(image_path)
+        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+         
+        if preprocess == "thresh":
+            gray = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+        elif preprocess == "blur":
+            gray = cv2.medianBlur(gray, 3)
+
+        # Lưu ảnh trong ổ cứng như file tạm để có thể apply OCR
+        temp_filename = "temp.png"
+        cv2.imwrite(temp_filename, gray)
+
+        custom_config = r'--oem 3 --psm 6'
+        from PIL import Image
+        # Load ảnh và apply nhận dạng bằng Tesseract OCR
+        text = pytesseract.image_to_string(Image.open(temp_filename),config=custom_config, lang='vie')  # có nhiều ngông ngữ thì trong lang các ngôn ngữ cách nhau bằng dấu  +
+        """ Cần chú ý các chế độ nhận diện được điều chỉnh bằng config """
 
         skuss = re.sub(r"[^a-zA-Z0-9\- ]", "", text)
 
@@ -108,20 +125,10 @@ def cut2(filepath):
         pattern = r'\b[A-Za-z0-9]{4}\s*-\s*[A-Za-z]{2}\s*-\s*\d{2}\b'
 
         clean_text = skuss.replace('\n', ' ').replace('\r', ' ')
+        skusss = re.findall(pattern, clean_text)
 
-        corrected_list = correct_sku(clean_text)
-
-        # if(corrected_list==[]):
-        #     corrected_list=[clean_text]
-        corrected_text = ' '.join(corrected_list)
-
-        skusss = re.findall(pattern, corrected_text)
-
-        if not skusss:
-            rs = clean_text
-        else:
-            rs = skusss
-
+        rs = skusss
+        
         array.append({
             'sku': rs
         }) 
