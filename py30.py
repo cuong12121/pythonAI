@@ -220,7 +220,7 @@ def cut3(filepath):
    
 
     rs = skusss
-    return rs
+    return text
 
 def sku(output_file):
      # Load ảnh
