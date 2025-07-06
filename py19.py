@@ -130,7 +130,7 @@ def cut2(filepath):
         skusss = [s.replace(" ", "") for s in skusss]
 
         rs = skusss
-        return rs
+        
         
         array.append({
             'sku': rs
