@@ -134,7 +134,7 @@ def cut2(filepath):
         rs = skusss
         
         array.append({
-            'sku': rs
+            'sku': skuss1
         }) 
 
             
