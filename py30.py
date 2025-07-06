@@ -168,7 +168,7 @@ def cut3(filepath):
     pdf_path = filepath
     i=0
     # indexpage = i+1
-    indexpage =29
+    indexpage =33
     # Bước 1: Đọc chỉ trang 116 (số bắt đầu từ 1)
     pages = convert_from_path(pdf_path, dpi=300, first_page=indexpage, last_page=indexpage)
 
@@ -220,7 +220,7 @@ def cut3(filepath):
    
 
     rs = skusss
-    return skuss
+    return text
 
 def sku(output_file):
      # Load ảnh
