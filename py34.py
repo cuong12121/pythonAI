@@ -17,7 +17,7 @@ from wand.image import Image
 from wand.color import Color
 sys.stdout.reconfigure(encoding='utf-8')
 
-preprocess = "blur" 
+preprocess = "thresh" 
 
 image_path = 'cropped_page119.png'
 
@@ -38,5 +38,5 @@ cv2.imwrite(temp_filename, gray)
 custom_config = r'--oem 3 --psm 6'
 from PIL import Image
 # Load ảnh và apply nhận dạng bằng Tesseract OCR
-text = pytesseract.image_to_string(Image.open(temp_filename),config=custom_config, lang='eng-best+vie')
+text = pytesseract.image_to_string(Image.open(temp_filename),config=custom_config, lang='eng')
 print(text)
