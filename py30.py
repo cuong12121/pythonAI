@@ -207,12 +207,19 @@ def cut3(filepath):
     text = pytesseract.image_to_string(Image.open(temp_filename),config=custom_config, lang='eng-best')  # có nhiều ngông ngữ thì trong lang các ngôn ngữ cách nhau bằng dấu  +
     """ Cần chú ý các chế độ nhận diện được điều chỉnh bằng config """
 
-    # Tách từng dòng
-    lines = text.strip().split('\n')
+    skuss = re.sub(r"[^a-zA-Z0-9\- ]", " ", text)
 
-    # Gộp dòng 2 đến 7 (index 1 đến 6)
-    sku = ''.join(lines[1:7])
-    rs = sku
+    skuss = skuss.replace('SKU', '')
+
+    pattern = r'\b[A-Za-z0-9]{4,5}\s*-\s*[A-Za-z]{2}\s*-\s*\d{2}\b'
+
+    clean_text = skuss.replace('\n', ' ').replace('\r', ' ')
+
+    skusss = re.findall(pattern, clean_text)
+    
+    skusss = [s.replace(" ", "") for s in skusss]
+
+    rs = skusss
     return rs
 
 def sku(output_file):
