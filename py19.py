@@ -115,7 +115,7 @@ def cut2(filepath):
         custom_config = r'--oem 3 --psm 6'
         from PIL import Image
         # Load ảnh và apply nhận dạng bằng Tesseract OCR
-        text = pytesseract.image_to_string(Image.open(temp_filename),config=custom_config, lang='eng+vie')  # có nhiều ngông ngữ thì trong lang các ngôn ngữ cách nhau bằng dấu  +
+        text = pytesseract.image_to_string(Image.open(temp_filename),config=custom_config, lang='eng + vie')  # có nhiều ngông ngữ thì trong lang các ngôn ngữ cách nhau bằng dấu  +
         """ Cần chú ý các chế độ nhận diện được điều chỉnh bằng config """
 
         skuss = re.sub(r"[^a-zA-Z0-9\- ]", " ", text)
