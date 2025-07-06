@@ -209,18 +209,21 @@ def cut3(filepath):
 
     skuss = re.sub(r'[^A-Za-z0-9]+', '-', text)
 
-    skuss = skuss.replace('SKU', '')
+    skuss1 = skuss.replace('SKU', '')
+
+    skuss1 = skuss.replace('SKU-', '')      # Xóa 'SKU nếu có dấu gạch'
+
 
     pattern = r'\b[A-Za-z0-9]{4,5}\s*-\s*[A-Za-z]{2}\s*-\s*\d{2}\b'
 
-    clean_text = skuss.replace('\n', ' ').replace('\r', ' ')
+    clean_text = skuss1.replace('\n', ' ').replace('\r', ' ')
 
     skusss = re.findall(pattern, clean_text)
 
    
 
     rs = skusss
-    return text
+    return rs
 
 def sku(output_file):
      # Load ảnh
