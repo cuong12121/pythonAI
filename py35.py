@@ -29,7 +29,7 @@ output_file = os.path.join(current_dir, 'cropped1169.png')
 pdf_path = input_file
 i=0
 # indexpage = i+1
-indexpage =11
+indexpage =34
 # Bước 1: Đọc chỉ trang 116 (số bắt đầu từ 1)
 pages = convert_from_path(pdf_path, dpi=500, first_page=indexpage, last_page=indexpage)
 
