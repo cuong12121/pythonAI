@@ -168,7 +168,7 @@ def cut3(filepath):
     pdf_path = filepath
     i=0
     # indexpage = i+1
-    indexpage =73
+    indexpage =29
     # Bước 1: Đọc chỉ trang 116 (số bắt đầu từ 1)
     pages = convert_from_path(pdf_path, dpi=300, first_page=indexpage, last_page=indexpage)
 
@@ -216,8 +216,8 @@ def cut3(filepath):
     clean_text = skuss.replace('\n', ' ').replace('\r', ' ')
 
     skusss = re.findall(pattern, clean_text)
-    
-    skusss = [s.replace(" ", "") for s in skusss]
+
+   
 
     rs = skusss
     return rs
