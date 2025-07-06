@@ -21,7 +21,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 # Define file paths (equivalent to __DIR__ in PHP)
 current_dir = os.path.dirname(os.path.abspath(__file__))
-input_file = os.path.join(current_dir, 't40.pdf')
+input_file = os.path.join(current_dir, 't39.pdf')
 output_file = os.path.join(current_dir, 'cropped1169.png')
 
 array =[]
@@ -168,7 +168,7 @@ def cut3(filepath):
     pdf_path = filepath
     i=0
     # indexpage = i+1
-    indexpage =1
+    indexpage =2
     # Bước 1: Đọc chỉ trang 116 (số bắt đầu từ 1)
     pages = convert_from_path(pdf_path, dpi=300, first_page=indexpage, last_page=indexpage)
 
@@ -204,17 +204,19 @@ def cut3(filepath):
     custom_config = r'--oem 3 --psm 6'
     from PIL import Image
     # Load ảnh và apply nhận dạng bằng Tesseract OCR
-    text = pytesseract.image_to_string(Image.open(temp_filename),config=custom_config, lang='vie')  # có nhiều ngông ngữ thì trong lang các ngôn ngữ cách nhau bằng dấu  +
+    text = pytesseract.image_to_string(Image.open(temp_filename),config=custom_config, lang='eng+vie')  # có nhiều ngông ngữ thì trong lang các ngôn ngữ cách nhau bằng dấu  +
     """ Cần chú ý các chế độ nhận diện được điều chỉnh bằng config """
 
-    skuss = re.sub(r"[^a-zA-Z0-9\- ]", "", text)
+    skuss = re.sub(r"[^a-zA-Z0-9\- ]", " ", text)
 
     skuss = skuss.replace('SKU', '')
 
     pattern = r'\b[A-Za-z0-9]{4}\s*-\s*[A-Za-z]{2}\s*-\s*\d{2}\b'
 
     clean_text = skuss.replace('\n', ' ').replace('\r', ' ')
+
     skusss = re.findall(pattern, clean_text)
+    skusss = [s.replace(" ", "") for s in skusss]
 
     rs = skusss
     return rs
