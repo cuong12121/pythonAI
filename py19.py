@@ -80,7 +80,7 @@ def cut2(filepath):
     for i in range(so_trang):
         indexpage = i+1
         # Bước 1: Đọc chỉ trang 116 (số bắt đầu từ 1)
-        pages = convert_from_path(pdf_path, dpi=300, first_page=indexpage, last_page=indexpage)
+        pages = convert_from_path(pdf_path, dpi=500, first_page=indexpage, last_page=indexpage)
 
         # Bước 2: Lấy trang 116 ra (chỉ có 1 phần tử)
         page = pages[0]  # dạng PIL.Image
@@ -91,14 +91,12 @@ def cut2(filepath):
 
         # Bước 4: Cắt vùng theo tọa độ [y1:y2, x1:x2]
         # Ví dụ: cắt vùng từ dòng 100 đến 400 và cột 200 đến 600
-        cropped = img[1900:2900, 82:170]  # vì 82+88=170
+        cropped = img[3350:3900, 130:270]  # vì 82+88=170
+        image_path = "cropped_page116.png"
 
+        cv2.imwrite(image_path, cropped)
 
-        cv2.imwrite("cropped_page116.png", cropped)
-
-        preprocess = "thresh" 
-
-        image_path = 'cropped_page116.png'
+        preprocess = "blur" 
 
         image = cv2.imread(image_path)
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -106,16 +104,16 @@ def cut2(filepath):
         if preprocess == "thresh":
             gray = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
         elif preprocess == "blur":
-            gray = cv2.medianBlur(gray, 3)
+            gray = cv2.medianBlur(gray, 5)
 
         # Lưu ảnh trong ổ cứng như file tạm để có thể apply OCR
-        temp_filename = "temp.png"
+        temp_filename = "temp.tiff"
         cv2.imwrite(temp_filename, gray)
 
         custom_config = r'--oem 3 --psm 6'
         from PIL import Image
         # Load ảnh và apply nhận dạng bằng Tesseract OCR
-        text = pytesseract.image_to_string(Image.open(temp_filename),config=custom_config, lang='eng-best')  # có nhiều ngông ngữ thì trong lang các ngôn ngữ cách nhau bằng dấu  +
+        text = pytesseract.image_to_string(Image.open(temp_filename),config=custom_config, lang='eng-best+vie')  # có nhiều ngông ngữ thì trong lang các ngôn ngữ cách nhau bằng dấu  +
         """ Cần chú ý các chế độ nhận diện được điều chỉnh bằng config """
         # regex toàn bộ ký tự đặc biệt thành '-'
         skuss = re.sub(r'[^A-Za-z0-9]+', '-', text)
@@ -134,7 +132,7 @@ def cut2(filepath):
         rs = skusss
         
         array.append({
-            'sku': skuss1
+            'sku': rs
         }) 
 
             
@@ -180,7 +178,7 @@ def cut3(filepath):
     i=35
     indexpage = i+1
     # Bước 1: Đọc chỉ trang 116 (số bắt đầu từ 1)
-    pages = convert_from_path(pdf_path, dpi=300, first_page=indexpage, last_page=indexpage)
+    pages = convert_from_path(pdf_path, dpi=500, first_page=indexpage, last_page=indexpage)
 
     # Bước 2: Lấy trang 116 ra (chỉ có 1 phần tử)
     page = pages[0]  # dạng PIL.Image
@@ -191,7 +189,7 @@ def cut3(filepath):
 
     # Bước 4: Cắt vùng theo tọa độ [y1:y2, x1:x2]
     # Ví dụ: cắt vùng từ dòng 100 đến 400 và cột 200 đến 600
-    cropped = img[1900:2900, 82:170]  # vì 82+88=170
+    cropped = img[3350:3900, 130:270]  # vì 82+88=170
 
 
     cv2.imwrite("cropped_page116.png", cropped)
