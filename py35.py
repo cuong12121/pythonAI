@@ -29,7 +29,7 @@ output_file = os.path.join(current_dir, 'cropped1169.png')
 pdf_path = input_file
 i=0
 # indexpage = i+1
-indexpage =70
+indexpage =111
 # Bước 1: Đọc chỉ trang 116 (số bắt đầu từ 1)
 pages = convert_from_path(pdf_path, dpi=600, first_page=indexpage, last_page=indexpage)
 
@@ -54,6 +54,16 @@ custom_config = r'--oem 1 --psm 11'
 # Load ảnh và apply nhận dạng bằng Tesseract OCR
 text = pytesseract.image_to_string(cropped,config=custom_config, lang='vie')
 
+lines = [line.strip() for line in text.split('\n') if line.strip()]
+
+# Kiểm tra dòng 2 (chỉ khi có ít nhất 2 dòng)
+if len(lines) >= 2:
+    line2 = lines[1]
+
+    if len(line2) >= 2 and line2[3] == '0':
+        text = pytesseract.image_to_string(cropped,config=custom_config, lang='eng')
+   
+
 skuss = re.sub(r'[^A-Za-z0-9]+', '-', text)
 
 skuss1 = skuss.replace('SKU', '')
@@ -68,4 +78,4 @@ skusss = re.findall(pattern, clean_text)
 skusss = [s.replace(" ", "") for s in skusss]
 
 rs = skusss
-print(rs)
+print(text)

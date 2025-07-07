@@ -71,6 +71,15 @@ def cut2(input_file):
 		# Load ảnh và apply nhận dạng bằng Tesseract OCR
 		text = pytesseract.image_to_string(gray,config=custom_config, lang='vie')
 
+		lines = [line.strip() for line in text.split('\n') if line.strip()]
+
+		# Kiểm tra dòng 2 (chỉ khi có ít nhất 2 dòng)
+		if len(lines) >= 2:
+		    line2 = lines[1]
+
+		    if len(line2) >= 2 and line2[3] == '0':
+		        text = pytesseract.image_to_string(cropped,config=custom_config, lang='eng')
+
 		skuss = re.sub(r'[^A-Za-z0-9]+', '-', text)
 
 		skuss1 = skuss.replace('SKU', '')
