@@ -188,7 +188,7 @@ for item in data:
             #     array.append({
             #         'quantity':convert_quantity_to_array(quantitys)
             #     }) 
-
+            dem=0;
             for i in range(so_trang):
                 # Đọc ảnh
                 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -232,6 +232,11 @@ for item in data:
                 array.append({
                 'quantity':numbers
                 }) 
+
+                
+                dem += 1
+
+                print(i, flush=True)
 
                
             r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True)
