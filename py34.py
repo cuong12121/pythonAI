@@ -27,7 +27,7 @@ gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 if preprocess == "thresh":
     gray = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
 elif preprocess == "blur":
-    gray = cv2.medianBlur(gray, 5)
+    gray = cv2.medianBlur(gray, 3)
 
 # Lưu ảnh trong ổ cứng như file tạm để có thể apply OCR
 temp_filename = "temp.tiff"

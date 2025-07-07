@@ -42,7 +42,7 @@ def cut2(input_file):
 		indexpage = i+1
 		
 		# Bước 1: Đọc chỉ trang 116 (số bắt đầu từ 1)
-		pages = convert_from_path(pdf_path, dpi=500, first_page=indexpage, last_page=indexpage)
+		pages = convert_from_path(pdf_path, dpi=600, first_page=indexpage, last_page=indexpage)
 
 		# Bước 2: Lấy trang 116 ra (chỉ có 1 phần tử)
 		page = pages[0]  # dạng PIL.Image
@@ -53,7 +53,7 @@ def cut2(input_file):
 
 		# Bước 4: Cắt vùng theo tọa độ [y1:y2, x1:x2]
 		# Ví dụ: cắt vùng từ dòng 100 đến 400 và cột 200 đến 600
-		cropped = img[3350:4500, 130:270]  # vì 82+88=170
+		cropped = img[3800:5500, 170:340]  # vì 82+88=170
 
 		preprocess = "thresh" 
 
@@ -65,11 +65,11 @@ def cut2(input_file):
 		elif preprocess == "blur":
 		    gray = cv2.medianBlur(gray, 5)
 
-		custom_config = r'--oem 3 --psm 6'
+		custom_config = r'--oem 1 --psm 11'
 
-		from PIL import Image
+		# from PIL import Image
 		# Load ảnh và apply nhận dạng bằng Tesseract OCR
-		text = pytesseract.image_to_string(gray,config=custom_config, lang='eng')
+		text = pytesseract.image_to_string(gray,config=custom_config, lang='vie')
 
 		skuss = re.sub(r'[^A-Za-z0-9]+', '-', text)
 
