@@ -22,14 +22,14 @@ sys.stdout.reconfigure(encoding='utf-8')
 current_dir = os.path.dirname(os.path.abspath(__file__))
 # so_trang = count_pdf_pages(input_file)
 
-input_file = os.path.join(current_dir, 't46.pdf')
+input_file = os.path.join(current_dir, 't45.pdf')
 output_file = os.path.join(current_dir, 'cropped1169.png')
 
 # Đường dẫn đến file PDF
 pdf_path = input_file
 i=0
 # indexpage = i+1
-indexpage =111
+indexpage =14
 # Bước 1: Đọc chỉ trang 116 (số bắt đầu từ 1)
 pages = convert_from_path(pdf_path, dpi=600, first_page=indexpage, last_page=indexpage)
 
@@ -41,6 +41,10 @@ open_cv_image = np.array(page.convert('RGB'))
 
 gray = cv2.cvtColor(open_cv_image, cv2.COLOR_BGR2GRAY)
 gray = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+
+
+
+
 # gray = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
 # Bước 4: Cắt vùng theo tọa độ [y1:y2, x1:x2]
 # Ví dụ: cắt vùng từ dòng 100 đến 400 và cột 200 đến 600
@@ -49,19 +53,19 @@ gray = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
 # 3350:4500, 130:290 500
 cropped = gray[3800:5500, 170:340]  # vì 82+88=170
 
-custom_config = r'--oem 1 --psm 11'
+custom_config = r'--oem 3 --psm 6'
 
 # Load ảnh và apply nhận dạng bằng Tesseract OCR
-text = pytesseract.image_to_string(cropped,config=custom_config, lang='vie')
+text = pytesseract.image_to_string(cropped,config=custom_config, lang='vie-best2')
 
 lines = [line.strip() for line in text.split('\n') if line.strip()]
 
 # Kiểm tra dòng 2 (chỉ khi có ít nhất 2 dòng)
-if len(lines) >= 2:
-    line2 = lines[1]
+# if len(lines) >= 2:
+#     line2 = lines[1]
 
-    if len(line2) >= 2 and line2[3] == '0':
-        text = pytesseract.image_to_string(cropped,config=custom_config, lang='eng')
+#     if len(line2) >= 2 and line2[3] == '0':
+#         text = pytesseract.image_to_string(cropped,config=custom_config, lang='eng')
    
 
 skuss = re.sub(r'[^A-Za-z0-9]+', '-', text)

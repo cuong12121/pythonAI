@@ -60,16 +60,16 @@ def cut2(input_file):
 
 		gray = cv2.cvtColor(cropped, cv2.COLOR_BGR2GRAY)
 		 
-		if preprocess == "thresh":
-		    gray = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
-		elif preprocess == "blur":
-		    gray = cv2.medianBlur(gray, 5)
+		# if preprocess == "thresh":
+		#     gray = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+		# elif preprocess == "blur":
+		#     gray = cv2.medianBlur(gray, 5)
 
 		custom_config = r'--oem 1 --psm 11'
 
 		# from PIL import Image
 		# Load ảnh và apply nhận dạng bằng Tesseract OCR
-		text = pytesseract.image_to_string(gray,config=custom_config, lang='vie')
+		text = pytesseract.image_to_string(gray,config=custom_config, lang='vie-best2')
 
 		lines = [line.strip() for line in text.split('\n') if line.strip()]
 
