@@ -25,6 +25,10 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 # input_file = os.path.join(current_dir, 't44.pdf')
 # output_file = os.path.join(current_dir, 'cropped1169.png')
 
+def count_pdf_pages(input_file):
+    with Image(filename=input_file) as img:
+        return len(img.sequence)
+
 def cut2(input_file):
 
 	# Đường dẫn đến file PDF
