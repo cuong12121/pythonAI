@@ -9,7 +9,7 @@ import time
 import numpy as np
 import gc
 from pdf2image import convert_from_path
-
+import requests
 import redis
 import json
 import time
@@ -65,14 +65,14 @@ def cut2(input_file):
 		    gray = cv2.medianBlur(gray, 5)
 
 		custom_config = r'--oem 3 --psm 6'
-		
+
 		from PIL import Image
 		# Load ảnh và apply nhận dạng bằng Tesseract OCR
 		text = pytesseract.image_to_string(gray,config=custom_config, lang='eng')
 
 		skuss = re.sub(r'[^A-Za-z0-9]+', '-', text)
 
-	    # skuss1 = skuss.replace('SKU', '')
+		skuss1 = skuss.replace('SKU', '')
 
 	    # skuss1 = skuss1.replace('SKU-','')      # Xóa 'SKU nếu có dấu gạch'
 
