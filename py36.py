@@ -49,23 +49,23 @@ def cut2(input_file):
 
 		# Bước 3: Chuyển PIL → NumPy → OpenCV (BGR)
 		open_cv_image = np.array(page.convert('RGB'))
-		img = cv2.cvtColor(open_cv_image, cv2.COLOR_RGB2BGR)
+		
+
+		gray = cv2.cvtColor(open_cv_image, cv2.COLOR_BGR2GRAY)
+		gray = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
 
 		# Bước 4: Cắt vùng theo tọa độ [y1:y2, x1:x2]
 		# Ví dụ: cắt vùng từ dòng 100 đến 400 và cột 200 đến 600
 		cropped = img[3800:5500, 170:340]  # vì 82+88=170
 
-		preprocess = "thresh" 
-
-
-		gray = cv2.cvtColor(cropped, cv2.COLOR_BGR2GRAY)
+		
 		 
 		# if preprocess == "thresh":
 		#     gray = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
 		# elif preprocess == "blur":
 		#     gray = cv2.medianBlur(gray, 5)
 
-		custom_config = r'--oem 1 --psm 11'
+		custom_config = r'--oem 3 --psm 6'
 
 		# from PIL import Image
 		# Load ảnh và apply nhận dạng bằng Tesseract OCR
