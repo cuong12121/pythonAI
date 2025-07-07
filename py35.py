@@ -22,14 +22,14 @@ sys.stdout.reconfigure(encoding='utf-8')
 current_dir = os.path.dirname(os.path.abspath(__file__))
 # so_trang = count_pdf_pages(input_file)
 
-input_file = os.path.join(current_dir, 't45.pdf')
+input_file = os.path.join(current_dir, 't46.pdf')
 output_file = os.path.join(current_dir, 'cropped1169.png')
 
 # Đường dẫn đến file PDF
 pdf_path = input_file
 i=0
 # indexpage = i+1
-indexpage =1
+indexpage =111
 # Bước 1: Đọc chỉ trang 116 (số bắt đầu từ 1)
 pages = convert_from_path(pdf_path, dpi=600, first_page=indexpage, last_page=indexpage)
 
@@ -56,7 +56,7 @@ cropped = gray[3800:5500, 170:340]  # vì 82+88=170
 custom_config = r'--oem 3 --psm 6'
 
 # Load ảnh và apply nhận dạng bằng Tesseract OCR
-text = pytesseract.image_to_string(cropped,config=custom_config, lang='vie11')
+text = pytesseract.image_to_string(cropped,config=custom_config, lang='vie-best2')
 
 lines = [line.strip() for line in text.split('\n') if line.strip()]
 
