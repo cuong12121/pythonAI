@@ -236,7 +236,7 @@ for item in data:
                 
                 dem += 1
 
-                print(i, flush=True)
+                print(dem, flush=True)
 
                
             r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True)
