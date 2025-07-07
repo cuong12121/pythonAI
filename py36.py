@@ -89,9 +89,9 @@ def cut2(input_file):
 		array.append({
 	        'sku': rs
 	    }) 
-	    dem += 1
+		dem += 1
 
-    	print(dem, flush=True)
+		print(dem, flush=True)
 	return array    
 
 
