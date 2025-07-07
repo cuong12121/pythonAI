@@ -37,7 +37,7 @@ def cut2(input_file):
 	array = []
 
 	so_trang = count_pdf_pages(input_file)
-	  
+	dem=0 
 	for i in range(so_trang):
 		indexpage = i+1
 		
@@ -89,6 +89,9 @@ def cut2(input_file):
 		array.append({
 	        'sku': rs
 	    }) 
+	    dem += 1
+
+    	print(dem, flush=True)
 	return array    
 
 
