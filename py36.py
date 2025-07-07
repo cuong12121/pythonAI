@@ -69,7 +69,7 @@ def cut2(input_file):
 
 		# from PIL import Image
 		# Load ảnh và apply nhận dạng bằng Tesseract OCR
-		text = pytesseract.image_to_string(gray,config=custom_config, lang='vie-best2')
+		text = pytesseract.image_to_string(gray,config=custom_config, lang='vie11')
 
 		# lines = [line.strip() for line in text.split('\n') if line.strip()]
 

@@ -56,7 +56,7 @@ cropped = gray[3800:5500, 170:340]  # vì 82+88=170
 custom_config = r'--oem 3 --psm 6'
 
 # Load ảnh và apply nhận dạng bằng Tesseract OCR
-text = pytesseract.image_to_string(cropped,config=custom_config, lang='vie-best2')
+text = pytesseract.image_to_string(cropped,config=custom_config, lang='vie11')
 
 lines = [line.strip() for line in text.split('\n') if line.strip()]
 
