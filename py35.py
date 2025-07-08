@@ -29,7 +29,7 @@ output_file = os.path.join(current_dir, 'cropped1169.png')
 pdf_path = input_file
 i=0
 # indexpage = i+1
-indexpage =111
+indexpage =2
 # Bước 1: Đọc chỉ trang 116 (số bắt đầu từ 1)
 pages = convert_from_path(pdf_path, dpi=600, first_page=indexpage, last_page=indexpage)
 
@@ -38,35 +38,52 @@ pages = convert_from_path(pdf_path, dpi=600, first_page=indexpage, last_page=ind
 
 # Bước 3: Chuyển PIL → NumPy → OpenCV (BGR)
 
-page = pages[0].convert('RGB')  # page là ảnh kiểu PIL
+# page = pages[0].convert('RGB')  # page là ảnh kiểu PIL
 
 # Cắt vùng tương ứng với gray[3800:5500, 170:340]
-cropped = page.crop((170, 3800, 340, 5500))  # (x1, y1, x2, y2)
+cropped = pages[0]  # (x1, y1, x2, y2)
 
 
 
 # Cắt vùng tương ứng với gray[3800:5500, 170:340]
-# cropped = gray.crop((170, 3800, 340, 5500))  # (x1, y1, x2, y2)
+# cropped = cropped.crop((170, 3800, 340, 5500))  # (x1, y1, x2, y2)
 
 
 
 
-# gray = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
-# Bước 4: Cắt vùng theo tọa độ [y1:y2, x1:x2]
-# Ví dụ: cắt vùng từ dòng 100 đến 400 và cột 200 đến 600
- # 4750:6400, 210:390 700
-# 3800:5100, 170:340 600
-# 3350:4500, 130:290 500
-# cropped = gray[3800:5500, 170:340]  # vì 82+88=170
+# gray = cv2.threshold(cropped, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+
 
 custom_config = r'--oem 3 --psm 6'
 
 # Load ảnh và apply nhận dạng bằng Tesseract OCR
 text = pytesseract.image_to_string(cropped,config=custom_config, lang='vie-best2')
 
-# text = """..."""  # đoạn text bạn dán vào đây
+# Tìm đoạn sau cụm 'phân tiên loại 1'
+match = re.search(r'phân tiên\s+loại\s*(.*)', text, flags=re.IGNORECASE | re.DOTALL)
+if match:
 
-print(text)
+	after_ordersn = match.group(1).strip()
+
+	# Xoá mọi thứ sau dấu |
+	cleaned_text = re.sub(r'\|.*', '', after_ordersn)
+
+	cleaned_text = re.sub(r'\b\d+\s', '', cleaned_text)
+	cleaned_text = re.sub(r"[^a-zA-Z0-9\- ]", "", cleaned_text)
+
+	pattern = r'\b[A-Za-z0-9]{4,5}\s*-\s*[A-Za-z]{2}\s*-\s*\d{2}\b'
+
+	clean_text = cleaned_text.replace('\n', ' ').replace('\r', ' ')
+
+	skusss = re.findall(pattern, clean_text)
+	skusss = [s.replace(" ", "") for s in skusss]
+
+	rs = skusss
+
+	# Print the results
+	print(clean_text)
+else:
+    print("Không tìm thấy OrderSN.")
 
 exit()
 
