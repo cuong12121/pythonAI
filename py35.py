@@ -9,6 +9,7 @@ import time
 import numpy as np
 import gc
 from pdf2image import convert_from_path
+import fitz
 
 # import redis
 import json
@@ -20,16 +21,74 @@ from wand.color import Color
 sys.stdout.reconfigure(encoding='utf-8')
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
+
+def pdf_to_text(pdf_path, page):
+	index = page-1
+	doc = fitz.open(pdf_path)
+	text = ""
+	page1 = doc[index]  # Trang 1 = index 0
+	text = page1.get_text()
+	return text
+
+
+
+
+
 # so_trang = count_pdf_pages(input_file)
 
 input_file = os.path.join(current_dir, 't46.pdf')
-output_file = os.path.join(current_dir, 'cropped1169.png')
+
+
+text = pdf_to_text(input_file,14)
+
+lines = text.splitlines()
+
+# Tìm dòng bắt đầu từ "Phân loại hàng" đến dòng chứa "tiền"
+start_index = None
+for i in range(len(lines)):
+    if "Phân loại hàng" in lines[i]:
+        if i + 1 < len(lines) and "tiền" in lines[i + 1]:
+            start_index = i + 2  # dữ liệu bắt đầu từ dòng sau
+            break
+
+# Lấy phần text sau đoạn đó
+if start_index is not None:
+	remaining_text = "\n".join(lines[start_index:])
+
+	# Xóa dòng chỉ chứa số 1 đến 9
+	cleaned_text = re.sub(r'^\s*[1-9]\s*$', '', remaining_text, flags=re.MULTILINE)
+
+	# Xóa các dòng trống còn lại sau khi xóa
+	cleaned_text = re.sub(r'\n+', '\n', cleaned_text).strip()
+
+    # Bỏ xuống dòng giữa các phần mã
+	text_no_breaks = cleaned_text.replace('\n', '')
+
+
+
+	# Regex nhận dạng SKU dạng: 650J-NA-00-UPS-00-001
+	pattern = r'[A-Za-z0-9]{4,5}-[A-Za-z]{2}-\d{2}-[A-Za-z]{3}'
+
+	matches = re.findall(pattern, text_no_breaks)
+
+	matches =list(dict.fromkeys(matches))
+
+	print(text_no_breaks)
+
+	exit()
+
+	
+
+
+
+
+exit()
 
 # Đường dẫn đến file PDF
 pdf_path = input_file
 i=0
 # indexpage = i+1
-indexpage =2
+indexpage =1
 # Bước 1: Đọc chỉ trang 116 (số bắt đầu từ 1)
 pages = convert_from_path(pdf_path, dpi=600, first_page=indexpage, last_page=indexpage)
 
@@ -38,10 +97,10 @@ pages = convert_from_path(pdf_path, dpi=600, first_page=indexpage, last_page=ind
 
 # Bước 3: Chuyển PIL → NumPy → OpenCV (BGR)
 
-# page = pages[0].convert('RGB')  # page là ảnh kiểu PIL
+page = pages[0].convert('RGB')  # page là ảnh kiểu PIL
 
 # Cắt vùng tương ứng với gray[3800:5500, 170:340]
-cropped = pages[0]  # (x1, y1, x2, y2)
+cropped = page  # (x1, y1, x2, y2)
 
 
 
