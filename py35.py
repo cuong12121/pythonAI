@@ -22,14 +22,14 @@ sys.stdout.reconfigure(encoding='utf-8')
 current_dir = os.path.dirname(os.path.abspath(__file__))
 # so_trang = count_pdf_pages(input_file)
 
-input_file = os.path.join(current_dir, 't45.pdf')
+input_file = os.path.join(current_dir, 't46.pdf')
 output_file = os.path.join(current_dir, 'cropped1169.png')
 
 # Đường dẫn đến file PDF
 pdf_path = input_file
 i=0
 # indexpage = i+1
-indexpage =14
+indexpage =111
 # Bước 1: Đọc chỉ trang 116 (số bắt đầu từ 1)
 pages = convert_from_path(pdf_path, dpi=600, first_page=indexpage, last_page=indexpage)
 
