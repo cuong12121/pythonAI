@@ -70,7 +70,7 @@ def cut2(input_file):
 
 
 			# Regex nhận dạng SKU dạng: 650J-NA-00-UPS-00-001
-			pattern = r'[A-Za-z0-9]{4}-[a-zA-Z]{2}-\d{2}-[A-Za-z]{3}'
+			pattern = r'[A-Za-z0-9]{4}-[a-zA-Z]{2}-\d{2}'
 
 			matches = re.findall(pattern, text_no_breaks)
 
