@@ -80,8 +80,8 @@ def cut2(input_file):
 		        'sku': rs
 		    }) 
 			
-
 			print(dem, flush=True)
+			print(rs, flush=True)
 
 	return array		
 
