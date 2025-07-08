@@ -81,7 +81,7 @@ def cut2(input_file):
 		    }) 
 			
 
-			print(rs, flush=True)
+			print(dem, flush=True)
 
 	return array		
 
