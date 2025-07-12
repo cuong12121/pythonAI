@@ -6,7 +6,7 @@ warnings.filterwarnings('ignore', category=UserWarning, module='paddle')
 ocr = PaddleOCR(use_angle_cls=True, lang='en')
 
 # Thay 'image.png' bằng đường dẫn tới hình ảnh của bạn
-image_path = 'cropped116.png'
+image_path = 'file3.png'
 result = ocr.ocr(image_path, cls=True)
 
 # In kết quả nhận diện
