@@ -1,4 +1,6 @@
 from paddleocr import PaddleOCR
+import warnings
+warnings.filterwarnings('ignore', category=UserWarning, module='paddle')
 
 # Khởi tạo PaddleOCR với ngôn ngữ tiếng Việt
 ocr = PaddleOCR(use_angle_cls=True, lang='en')
