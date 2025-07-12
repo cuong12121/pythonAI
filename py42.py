@@ -1,7 +1,7 @@
 from paddleocr import PaddleOCR
 
 # Khởi tạo PaddleOCR với ngôn ngữ tiếng Việt
-ocr = PaddleOCR(use_angle_cls=True, lang='vi')
+ocr = PaddleOCR(use_angle_cls=True, lang='en')
 
 # Thay 'image.png' bằng đường dẫn tới hình ảnh của bạn
 image_path = 'cropped1170.png'
