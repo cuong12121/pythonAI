@@ -42,11 +42,11 @@ def cut_image(input_file,page):
 
             img.sharpen(radius=1, sigma=1)  # Sharpen image
 
-            # x = 82
-            # y = 1900
-            # width = 90
-            # height = 1000
-            # img.crop(x, y, width=width, height=height)
+            x = 82
+            y = 1900
+            width = 90
+            height = 1000
+            img.crop(x, y, width=width, height=height)
             
             # Set output format to PNG
             img.format = 'png'
@@ -60,21 +60,21 @@ def cut_image(input_file,page):
 count =count_pdf_pages('t45.pdf')
 # for i in range(1):
 cut_image('t45.pdf',33)
-image_path = 'cropped1170.png'  # hoặc đường dẫn đầy đủ nếu nằm ngoài thư mục chạy
+# image_path = 'cropped1170.png'  # hoặc đường dẫn đầy đủ nếu nằm ngoài thư mục chạy
 
-image = cv2.imread(image_path)
+# image = cv2.imread(image_path)
 
-text = pytesseract.image_to_string(image, config='--oem 3 --psm 6',lang='vie')
+# text = pytesseract.image_to_string(image, config='--oem 3 --psm 6',lang='vie')
 
 
 
-# Bước 1: Lấy phần sau đoạn "phân tiền\nloại"
-match = re.search(r"phân tiền\s*loại\s*(.*)", text, re.DOTALL | re.IGNORECASE)
+# # Bước 1: Lấy phần sau đoạn "phân tiền\nloại"
+# match = re.search(r"phân tiền\s*loại\s*(.*)", text, re.DOTALL | re.IGNORECASE)
 
-if match:
-    after_text = match.group(1).strip()
+# if match:
+#     after_text = match.group(1).strip()
   
-    print(after_text,flush=True)
+#     print(after_text,flush=True)
     #     # Bước 2: Tìm tất cả phần trước dấu '-' trong từng dòng
     #     results = re.findall(r"^(.*?)-", after_text, re.MULTILINE)
         
