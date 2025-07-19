@@ -113,10 +113,6 @@ for item in data:
 
             array  = extract_sku_and_quantity(input_file)
 
-            print(array)
-
-            exit()
-
             r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True)
 
 
