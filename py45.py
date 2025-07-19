@@ -100,6 +100,8 @@ for item in data:
     # Gửi request để tải file
     responses = requests.get(file_pdf)
 
+     print(1)
+
     if responses.status_code == 200:
 
         with open(save_path, 'wb') as f:
