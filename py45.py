@@ -92,9 +92,7 @@ response = requests.get(url)
 
 data = response.json()  # Tự động decode JSON thành dict
 
-print(data)
 
-exit()
 number = 0
 for item in data:
     save_path = "t38.pdf"
