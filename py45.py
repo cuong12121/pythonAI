@@ -72,6 +72,7 @@ def extract_sku_and_quantity(pdf_path):
                                     quantity = 0
 
                                 page_items.append({
+                                    "page":i+1,
                                     "mvd": mvd,
                                     "mdh": order_code,
                                     "sku": sku[:10],
