@@ -91,6 +91,10 @@ url = "https://drive.dienmayai.com/file_in.php"
 response = requests.get(url)
 
 data = response.json()  # Tự động decode JSON thành dict
+
+print(data)
+
+exit()
 number = 0
 for item in data:
     save_path = "t38.pdf"
@@ -100,7 +104,7 @@ for item in data:
     # Gửi request để tải file
     responses = requests.get(file_pdf)
 
-    print(1)
+    
 
     if responses.status_code == 200:
 
