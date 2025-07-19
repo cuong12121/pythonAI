@@ -65,6 +65,7 @@ def extract_sku_and_quantity(pdf_path):
                                 raw_qty = r[5]  # cột SL
 
                                 sku = raw_sku.replace('\n', '').strip() if raw_sku else ""
+                                sku = sku.upper()
                                 try:
                                     quantity = int(raw_qty.replace(',', '').strip()) if raw_qty else 0
                                 except:
